@@ -4,5 +4,5 @@ $ApplicationID = ''
 $ApplicationKey = ''
 $TenantDomain = 'evotec.pl'
 
-$O365 = Get-Office365ServiceHealth -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain
 $O365

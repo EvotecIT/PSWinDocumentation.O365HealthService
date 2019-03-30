@@ -1,4 +1,4 @@
-function Get-Office365ServiceHealth {
+function Get-Office365Health {
     [CmdLetbinding()]
     param(
         [string][alias('ClientID')] $ApplicationID,
@@ -26,4 +26,3 @@ function Get-Office365ServiceHealth {
     $Output.Incidents = $Messages.Incidents | Sort-Object -Property LastUpdatedTime -Descending
     return $Output
 }
-
