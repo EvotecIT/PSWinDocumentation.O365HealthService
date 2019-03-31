@@ -3,10 +3,10 @@ function Get-Office365ServiceHealthMessages {
         [System.Collections.IDictionary] $Authorization,
         [string] $TenantDomain
     )
-    $Messages = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/Messages" -Headers $Authorization -Method Get)
+    $AllMessages = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/Messages" -Headers $Authorization -Method Get)
 
     $Output = @{}
-    $Simple = foreach ($Message in $Test.Value) {
+    $Simple = foreach ($Message in $AllMessages.Value) {
         $Messages = $Message.Messages
         [PSCustomObject] @{
             Id                           = $Message.Id
@@ -35,7 +35,7 @@ function Get-Office365ServiceHealthMessages {
         }
     }
 
-    $Exteneded = foreach ($Message in $Test.Value) {
+    $Exteneded = foreach ($Message in $AllMessages.Value) {
         $Messages = $Message.Messages
         foreach ($M in $Messages) {
             [PSCustomObject] @{
