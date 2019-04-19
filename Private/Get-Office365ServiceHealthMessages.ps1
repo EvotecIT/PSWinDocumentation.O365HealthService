@@ -48,6 +48,7 @@ function Get-Office365ServiceHealthMessages {
                 Severity                     = $Message.Severity
                 StartTime                    = $Message.StartTime
                 Message                      = $M.MessageText
+                PublishedTime                = $M.PublishedTime
 
                 Workload                     = $Message.Workload
                 WorkloadDisplayName          = $Message.WorkloadDisplayName
@@ -66,10 +67,62 @@ function Get-Office365ServiceHealthMessages {
         }
     }
 
-    $Output.MessageCenterInformationSimple = $Simple | & { process { if ($_.MessageType -eq 'MessageCenter' ) { $_ } } }
-    $Output.IncidentsSimple = $Simple | & { process { if ($_.MessageType -eq 'Incident' ) { $_ } } }
+    $Messages = foreach ($Entry in $Exteneded) {
+        $LimitedEntry = foreach ($_ in $Entry) { if ($_.MessageType -eq 'Incident') { $_ }} # Faster Where-Object
+        foreach ($Message in $LimitedEntry.Message) {
+            $Object = [PsCustomObject] @{
+                Service              = $LimitedEntry.WorkloadDisplayName
+                Status               = $LimitedEntry.Status
+                PublishedTime        = ConvertFrom-UTCTime -Time $LimitedEntry.PublishedTime -ToLocalTime
+                Title                = ''
+                UserImpact           = ''
+                MoreInfo             = ''
+                CurrentStatus        = ''
+                ScopeOfImpact        = ''
+                StartTime            = ''
+                PreliminaryRootCause = ''
+                NextUpdateBy         = ''
+                FinalStatus          = ''
+                Other                = ''
+            }
+            foreach ($SubMessage in $Message.Split([Environment]::NewLine)) {
+                # | Where-Object {  ($_).Trim() -ne '' }) {
+                if ($SubMessage -like 'Title: *') {
+                    $Object.Title = $SubMessage -replace 'Title: ', ''
+                } elseif ($SubMessage -like 'User Impact: *') {
+                    $Object.UserImpact = $SubMessage -replace 'User Impact: ', ''
+                } elseif ($SubMessage -like 'More info: *') {
+                    $Object.MoreInfo = $SubMessage -replace 'More info: ', ''
+                } elseif ($SubMessage -like 'Current status: *') {
+                    $Object.CurrentStatus = $SubMessage -replace 'Current status: ', ''
+                } elseif ($SubMessage -like 'Scope of impact: *') {
+                    $Object.ScopeOfImpact = $SubMessage -replace 'Scope of impact: ', ''
+                } elseif ($SubMessage -like 'Start time: *') {
+                    $Time = $SubMessage -replace 'Start time: ', ''
+                    $Object.StartTime = ConvertFrom-UTCTime -Time $Time -ToLocalTime
+                } elseif ($SubMessage -like 'Preliminary root cause: *') {
+                    $Object.PreliminaryRootCause = $SubMessage -replace 'Preliminary root cause: ', ''
+                } elseif ($SubMessage -like 'Next update by: *') {
+                    $Time = ($SubMessage -replace 'Next update by: ', '').Trim()
+                    $Object.NextUpdateBy = ConvertFrom-UTCTime -Time $Time -ToLocalTime
+                } elseif ($SubMessage -like 'Final status: *') {
+                    $Object.FinalStatus = ($SubMessage -replace 'Final status: ', '').Trim()
+                } else {
+                    $Object.Other = $SubMessage.Trim()
+                }
+            }
+            $Object
+        }
+    }
+    $Output.MessageCenterInformationSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'MessageCenter') { $_ }}
+    $Output.MessageCenterInformation = foreach ($_ in $Exteneded) { if ($_.MessageType -eq 'MessageCenter') { $_ }}
 
-    $Output.MessageCenterInformation = $Exteneded | & { process { if ($_.MessageType -eq 'MessageCenter' ) { $_ } } }
-    $Output.Incidents = $Exteneded | & { process { if ($_.MessageType -eq 'Incident' ) { $_ } } }
+    $Output.IncidentsSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'Incident') { $_ }}
+    $Output.Incidents = foreach ($_ in $Exteneded) { if ($_.MessageType -eq 'Incident') { $_ }}
+
+    $Output.PlannedMaintenanceSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ }}
+    $Output.PlannedMaintenance = foreach ($_ in $Exteneded) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ }}
+
+    $Output.Messages = $Messages
     return $Output
 }

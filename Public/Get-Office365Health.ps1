@@ -3,26 +3,88 @@ function Get-Office365Health {
     param(
         [string][alias('ClientID')] $ApplicationID,
         [string][alias('ClientSecret')] $ApplicationKey,
-        [string] $TenantDomain
+        [string] $TenantDomain,
+        [PSWinDocumentation.Office365Health[]] $TypesRequired # = [PSWinDocumentation.Office365Health]::All
     )
+    if ($null -eq $TypesRequired) { # -eq [PSWinDocumentation.Office365Health]::All) {
+        $TypesRequired = Get-Types -Types ([PSWinDocumentation.Office365Health])
+    }
 
     $Authorization = Connect-O365ServiceHealth -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain
     if ($null -ne $Authorization) {
-        $Services = Get-Office365ServiceHealthServices -Authorization $Authorization -TenantDomain $TenantDomain
-        $CurrentStatus = Get-Office365ServiceHealthCurrentStatus -Authorization $Authorization -TenantDomain $TenantDomain
-        $HistoricalStatus = Get-Office365ServiceHealthHistoricalStatus -Authorization $Authorization -TenantDomain $TenantDomain
-        $Messages = Get-Office365ServiceHealthMessages -Authorization $Authorization -TenantDomain $TenantDomain
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
+                [PSWinDocumentation.Office365Health]::Services,
+                [PSWinDocumentation.Office365Health]::ServicesExteneded)) {
+            $Services = Get-Office365ServiceHealthServices -Authorization $Authorization -TenantDomain $TenantDomain
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
+                [PSWinDocumentation.Office365Health]::CurrentStatus,
+                [PSWinDocumentation.Office365Health]::CurrentStatusExteneded
+            )) {
+            $CurrentStatus = Get-Office365ServiceHealthCurrentStatus -Authorization $Authorization -TenantDomain $TenantDomain
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
+                [PSWinDocumentation.Office365Health]::HistoricalStatus,
+                [PSWinDocumentation.Office365Health]::HistoricalStatusExteneded
+            )) {
+            $HistoricalStatus = Get-Office365ServiceHealthHistoricalStatus -Authorization $Authorization -TenantDomain $TenantDomain
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
+                [PSWinDocumentation.Office365Health]::Incidents,
+                [PSWinDocumentation.Office365Health]::IncidentsExteneded,
+                [PSWinDocumentation.Office365Health]::MessageCenterInformation,
+                [PSWinDocumentation.Office365Health]::MessageCenterInformationExtended,
+                [PSWinDocumentation.Office365Health]::PlannedMaintenance,
+                [PSWinDocumentation.Office365Health]::PlannedMaintenanceExteneded,
+                [PSWinDocumentation.Office365Health]::Messages
+            )) {
+
+            $Messages = Get-Office365ServiceHealthMessages -Authorization $Authorization -TenantDomain $TenantDomain
+        }
+
+
+        $Output = [ordered] @{}
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::Services)) {
+            $Output.Services = $Services.Simple
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::ServicesExteneded)) {
+            $Output.ServicesExteneded = $Services.Exteneded
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::CurrentStatus)) {
+            $Output.CurrentStatus = $CurrentStatus.Simple
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::CurrentStatusExteneded)) {
+            $Output.CurrentStatusExteneded = $CurrentStatus.Exteneded
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::HistoricalStatus)) {
+            $Output.HistoricalStatus = $HistoricalStatus.Simple
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::HistoricalStatusExteneded)) {
+            $Output.HistoricalStatusExteneded = $HistoricalStatus.Exteneded
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::MessageCenterInformation)) {
+            $Output.MessageCenterInformation = $Messages.MessageCenterInformationSimple | Sort-Object -Property LastUpdatedTime -Descending
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::MessageCenterInformationExtended)) {
+            $Output.MessageCenterInformationExtended = $Messages.MessageCenterInformation | Sort-Object -Property LastUpdatedTime -Descending
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::Incidents)) {
+            $Output.Incidents = $Messages.IncidentsSimple | Sort-Object -Property LastUpdatedTime -Descending
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::IncidentsExteneded)) {
+            $Output.IncidentsExteneded = $Messages.Incidents | Sort-Object -Property LastUpdatedTime -Descending
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::PlannedMaintenance)) {
+            $Output.PlannedMaintenance = $Messages.PlannedMaintenanceSimple | Sort-Object -Property LastUpdatedTime -Descending
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::PlannedMaintenanceExteneded)) {
+            $Output.PlannedMaintenanceExteneded = $Messages.PlannedMaintenance | Sort-Object -Property LastUpdatedTime -Descending
+        }
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::Messages)) {
+            $Output.Messages = $Messages.Messages
+        }
+        return $Output
+    } else {
+        return
     }
-    $Output = [ordered] @{}
-    $Output.ServicesSimple = $Services.Simple
-    $Output.ServicesExteneded = $Services.Exteneded
-    $Output.CurrentStatusSimple = $CurrentStatus.Simple
-    $Output.CurrentStatusExteneded = $CurrentStatus.Exteneded
-    $Output.HistoricalStatusSimple = $HistoricalStatus.Simple
-    $Output.HistoricalStatusExteneded = $HistoricalStatus.Exteneded
-    $Output.MessageCenterInformationSimple = $Messages.MessageCenterInformationSimple | Sort-Object -Property LastUpdatedTime -Descending
-    $Output.MessageCenterInformation = $Messages.MessageCenterInformation | Sort-Object -Property LastUpdatedTime -Descending
-    $Output.IncidentsSimple = $Messages.IncidentsSimple | Sort-Object -Property LastUpdatedTime -Descending
-    $Output.Incidents = $Messages.Incidents | Sort-Object -Property LastUpdatedTime -Descending
-    return $Output
 }
