@@ -1,15 +1,27 @@
 ﻿function ConvertFrom-UTCTime {
     [CmdLetbinding()]
     param(
-        [String] $Time,
+        [Object] $Time,
         [switch] $ToLocalTime
     )
-    $Time = $Time -replace ', at', '' -replace 'UTC', ''
-    $TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone).Bias
-    [DateTime] $Time = [DateTime]::Parse($Time)
-    if ($ToLocal) {
-        $Time.AddMinutes($TimeZoneBias)
+    if ($null -eq $Script:TimeZoneBias) {
+        $TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone).Bias
     } else {
-        $Time
+        $TimeZoneBias = $Script:TimeZoneBias
+    }
+    if ($Time -is [DateTime]) {
+        $ConvertedTime = $Time
+    } else {
+        if ($null -eq $Time -or $Time -eq '') {
+            return
+        } else {
+            $Time = $Time -replace ', at', '' -replace 'UTC', ''
+            [DateTime] $ConvertedTime = [DateTime]::Parse($Time)
+        }
+    }
+    if ($ToLocal) {
+        $ConvertedTime.AddMinutes($TimeZoneBias)
+    } else {
+        $ConvertedTime
     }
 }

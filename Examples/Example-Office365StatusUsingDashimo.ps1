@@ -5,15 +5,15 @@ $ApplicationID = ''
 $ApplicationKey = ''
 $TenantDomain = 'evotec.pl'
 
-$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime
 
 Dashboard -FilePath $PSScriptRoot\Health.html -Show {
     Tab -Name 'Services' {
         Section -Invisible {
-            Section {
+            Section -Name 'Service List' {
                 Table -DataTable $O365.Services
             }
-            Section {
+            Section -Name 'Service & Feature List' {
                 Table -DataTable $O365.ServicesExteneded
             }
         }
@@ -44,7 +44,7 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
                 Table -DataTable $O365.MessageCenterInformation
             }
             Section {
-                Table -DataTable $O365.MessageCenterInformationExtended
+                Table -DataTable $O365.MessageCenterInformationExtended -InvokeHTMLTags
             }
         }
     }
@@ -58,6 +58,13 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
             }
         }
     }
+    Tab -Name 'Incidents Messages' {
+        Section -Invisible {
+            Section {
+                Table -DataTable $O365.IncidentsMessages
+            }
+        }
+    }
     Tab -Name 'Planned Maintenance' {
         Section -Invisible {
             Section {
@@ -65,13 +72,6 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
             }
             Section {
                 Table -DataTable $O365.PlannedMaintenanceExteneded
-            }
-        }
-    }
-    Tab -Name 'Messages' {
-        Section -Invisible {
-            Section {
-                Table -DataTable $O365.Messages
             }
         }
     }

@@ -7,19 +7,19 @@ function Get-Office365ServiceHealthServices {
 
     $Output = @{}
     $Output.Simple = foreach ($Service in $Services.Value) {
-        [PSCustomObject] @{
-            ID          = $Service.ID
-            DisplayName = $Service.DisplayName
+        [PSCustomObject][ordered] @{
+            #ID          = $Service.ID
+            Service = $Service.DisplayName
         }
     }
 
     $Output.Exteneded = foreach ($Service in $Services.Value) {
         foreach ($Feature in  $Service.Features) {
-            [PSCustomObject] @{
-                ID                 = $Service.ID
-                DisplayName        = $Service.DisplayName
-                FeatureDisplayName = $Feature.DisplayName
-                FeatureName        = $Feature.Name
+            [PSCustomObject][ordered] @{
+                #ID                 = $Service.ID
+                Service = $Service.DisplayName
+                Feature = $Feature.DisplayName
+                #FeatureName        = $Feature.Name
             }
         }
     }
