@@ -42,7 +42,6 @@ function Get-Office365Health {
             )) {
             $Messages = Get-Office365ServiceHealthMessages -Authorization $Authorization -TenantDomain $TenantDomain -ToLocalTime:$ToLocalTime
         }
-
         $Output = [ordered] @{}
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::Services)) {
             $Output.Services = $Services.Simple
