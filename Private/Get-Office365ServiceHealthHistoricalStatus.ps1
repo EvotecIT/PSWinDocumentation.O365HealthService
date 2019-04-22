@@ -9,6 +9,7 @@ function Get-Office365ServiceHealthHistoricalStatus {
 
     $Output = @{}
     $Output.Simple = foreach ($Status in $HistoricalStatus.Value) {
+        $StatusTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
         [PSCustomObject][ordered] @{
             #ID          = $Status.ID
             Service       = $Status.WorkloadDisplayName
@@ -16,13 +17,15 @@ function Get-Office365ServiceHealthHistoricalStatus {
             IncidentIds   = $Status.IncidentIds -join ', '
             #Status              = $Status.Status
 
-            StatusTime    = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
+            StatusTime    = $StatusTime
+            StatusDaysAgo = Convert-TimeToDays -StartTime $StatusTime -EndTime $Script:Today
             #Workload            = $Status.Workload
 
         }
     }
     $Output.Exteneded = foreach ($Status in $HistoricalStatus.Value) {
         foreach ($Feature in  $Status.FeatureStatus) {
+            $StatusTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
             [PSCustomObject][ordered] @{
                 #ID                   = $Status.ID
                 Service       = $Status.WorkloadDisplayName
@@ -31,7 +34,8 @@ function Get-Office365ServiceHealthHistoricalStatus {
                 FeatureStatus = $Feature.FeatureServiceStatusDisplayName
                 IncidentIds   = $Status.IncidentIds -join ', '
                 #Status                          = $Status.Status
-                StatusTime    = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
+                StatusTime    = $StatusTime
+                StatusDaysAgo = Convert-TimeToDays -StartTime $StatusTime -EndTime $Script:Today
                 #Workload                        = $Status.Workload
                 #FeatureName                     = $Feature.FeatureName
                 #FeatureServiceStatus            = $Feature.FeatureServiceStatus

@@ -8,11 +8,13 @@ function Get-Office365ServiceHealthMessages {
 
     $Output = @{}
     $Simple = foreach ($Message in $AllMessages.Value) {
+        $LastUpdatedTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Message.LastUpdatedTime
         [PSCustomObject][ordered] @{
             Id                      = $Message.Id
             Title                   = $Message.Title
             ImpactDescription       = $Message.ImpactDescription
-            LastUpdatedTime         = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Message.LastUpdatedTime
+            LastUpdatedTime         = $LastUpdatedTime
+            LastUpdatedDaysAgo      = Convert-TimeToDays -StartTime $LastUpdatedTime -EndTime $Script:Today
             MessageType             = $Message.MessageType
             Status                  = $Message.Status
             Severity                = $Message.Severity
@@ -37,18 +39,21 @@ function Get-Office365ServiceHealthMessages {
     $Exteneded = foreach ($Message in $AllMessages.Value) {
         $Messages = $Message.Messages
         foreach ($M in $Messages) {
+            $LastUpdatedTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Message.LastUpdatedTime
+            $PublishedTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $M.PublishedTime
             [PSCustomObject][ordered] @{
                 Id                      = $Message.Id
                 Title                   = $Message.Title
                 ImpactDescription       = $Message.ImpactDescription
-                LastUpdatedTime         = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Message.LastUpdatedTime
+                LastUpdatedTime         = $LastUpdatedTime
+                LastUpdatedDaysAgo      = Convert-TimeToDays -StartTime $LastUpdatedTime -EndTime $Script:Today
                 MessageType             = $Message.MessageType
                 Status                  = $Message.Status
                 Severity                = $Message.Severity
                 StartTime               = ConvertFrom-UTCTime -Time $Message.StartTime -ToLocalTime:$ToLocalTime
                 Message                 = $M.MessageText
                 PublishedTime           = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $M.PublishedTime
-
+                PublishedDaysAgo        = Convert-TimeToDays -StartTime $PublishedTime -EndTime $Script:Today
                 #Workload                     = $Message.Workload
                 Workload                = $Message.WorkloadDisplayName
                 ActionType              = $Message.ActionType
@@ -75,16 +80,17 @@ function Get-Office365ServiceHealthMessages {
     }
     $Output.MessageCenterInformationSimple = foreach ($_ in $MessageCenterInformationSimple) {
         [PSCustomObject][ordered] @{
-            ID              = $_.ID
-            Title           = $_.Title
-            LastUpdatedTime = $_.LastUpdatedTime
-            Severity        = $_.Severity
-            StartTime       = $_.StartTime
-            EndTime         = $_.EndTime
-            ActionType      = $_.ActionType
-            Classification  = $_.Classification
-            AffectedService = $_.AffectedWorkload
-            MessageType     = $_.MessageType
+            ID                 = $_.ID
+            Title              = $_.Title
+            LastUpdatedTime    = $_.LastUpdatedTime
+            LastUpdatedDaysAgo = $_.LastUpdatedDaysAgo
+            Severity           = $_.Severity
+            StartTime          = $_.StartTime
+            EndTime            = $_.EndTime
+            ActionType         = $_.ActionType
+            Classification     = $_.Classification
+            AffectedService    = $_.AffectedWorkload
+            MessageType        = $_.MessageType
         }
     }
     # More information Message Center
@@ -93,18 +99,20 @@ function Get-Office365ServiceHealthMessages {
     }
     $Output.MessageCenterInformation = foreach ($_ in $MessageCenterInformation) {
         [PSCustomObject][Ordered] @{
-            ID              = $_.ID
-            PublishedTime   = $_.PublishedTime
-            Title           = $_.Title
-            Message         = $_.Message
-            LastUpdatedTime = $_.LastUpdatedTime
-            Severity        = $_.Severity
-            StartTime       = $_.StartTime
-            EndTime         = $_.EndTime
-            ActionType      = $_.ActionType
-            Classification  = $_.Classification
-            AffectedService = $_.AffectedWorkload
-            MessageType     = $_.MessageType
+            ID                 = $_.ID
+            PublishedTime      = $_.PublishedTime
+            PublishedDaysAgo   = $_.PublishedDaysAgo
+            Title              = $_.Title
+            Message            = $_.Message
+            LastUpdatedTime    = $_.LastUpdatedTime
+            LastUpdatedDaysAgo = $_.LastUpdatedDaysAgo
+            Severity           = $_.Severity
+            StartTime          = $_.StartTime
+            EndTime            = $_.EndTime
+            ActionType         = $_.ActionType
+            Classification     = $_.Classification
+            AffectedService    = $_.AffectedWorkload
+            MessageType        = $_.MessageType
         }
     }
 
@@ -120,6 +128,7 @@ function Get-Office365ServiceHealthMessages {
             Title                   = $_.Title
             ImpactDescription       = $_.ImpactDescription
             LastUpdatedTime         = $_.LastUpdatedTime
+            LastUpdatedDaysAgo      = $_.LastUpdatedDaysAgo
             UserFunctionalImpact    = $_.UserFunctionalImpact
             PostIncidentDocumentUrl = $_.PostIncidentDocumentUrl
             Severity                = $_.Severity
@@ -145,8 +154,10 @@ function Get-Office365ServiceHealthMessages {
             Title                   = $_.Title
             ImpactDescription       = $_.ImpactDescription
             PublishedTime           = $_.PublishedTime
+            PublishedDaysAgo        = $_.PublishedDaysAgo
             Message                 = $_.Message
             LastUpdatedTime         = $_.LastUpdatedTime
+            LastUpdatedDaysAgo      = $_.LastUpdatedDaysAgo
             UserFunctionalImpact    = $_.UserFunctionalImpact
             PostIncidentDocumentUrl = $_.PostIncidentDocumentUrl
             Severity                = $_.Severity
@@ -168,6 +179,7 @@ function Get-Office365ServiceHealthMessages {
                 Service              = $_.Workload
                 Status               = $_.Status
                 PublishedTime        = $_.PublishedTime
+                PublishedDaysAgo     = $_.PublishedDaysAgo
                 Title                = ''
                 UserImpact           = ''
                 MoreInfo             = ''

@@ -9,6 +9,7 @@ function Get-Office365Health {
     )
     $StartTime = Start-TimeLog
     $Script:TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone).Bias
+    $Script:Today = Get-Date
     if ($null -eq $TypesRequired -or $TypesRequired -contains [PSWinDocumentation.Office365Health]::All) {
         $TypesRequired = Get-Types -Types ([PSWinDocumentation.Office365Health])
     }
