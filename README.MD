@@ -2,8 +2,105 @@
 
 `PSWinDocumentation.O365HealthService` is a Powershell module that has a single goal of getting Office 365 Health Status
 
+### Overview:
+
+- How to/What it really use and how you can use it: https://evotec.xyz/powershell-way-to-get-all-information-about-office-365-service-health/
+- Step by Step to Get App ID and App Key: https://evotec.xyz/preparing-azure-app-registrations-permissions-for-office-365-health-service/
 
 
+### Install
+
+```
+Install-Module PSWinDocumentation.O365HealthService -Force
+```
+
+
+### Example 1
+
+Here's a live demo generated using Dashimo: https://evotec.xyz/wp-content/uploads/2019/04/Health.html
+
+```powershell
+Import-Module PSWinDocumentation.O365HealthService -Force
+Import-Module Dashimo -Force
+
+$ApplicationID = ''
+$ApplicationKey = ''
+$TenantDomain = 'evotec.pl'
+
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
+
+Dashboard -FilePath $PSScriptRoot\Health.html -Show {
+    Tab -Name 'Services' {
+        Section -Invisible {
+            Section -Name 'Service List' {
+                Table -DataTable $O365.Services
+            }
+            Section -Name 'Service & Feature List' {
+                Table -DataTable $O365.ServicesExteneded
+            }
+        }
+    }
+    Tab -Name 'Current Status' {
+        Section -Invisible {
+            Section -Name 'Current Status' {
+                Table -DataTable $O365.CurrentStatus
+            }
+            Section -Name 'Current Status Extended' {
+                Table -DataTable $O365.CurrentStatusExteneded
+            }
+        }
+    }
+    Tab -Name 'Historical Status' {
+        Section -Invisible {
+            Section -Name 'Historical Status' {
+                Table -DataTable $O365.HistoricalStatus
+            }
+            Section -Name 'Historical Status Extended' {
+                Table -DataTable $O365.HistoricalStatusExteneded
+            }
+        }
+    }
+    Tab -Name 'Message Center Information' {
+        Section -Invisible {
+            Section -Name 'Message Center' {
+                Table -DataTable $O365.MessageCenterInformation
+            }
+            Section -Name 'Message Center Extended' {
+                Table -DataTable $O365.MessageCenterInformationExtended -InvokeHTMLTags
+            }
+        }
+    }
+    Tab -Name 'Incidents' {
+        Section -Invisible {
+            Section -Name 'Incidents' {
+                Table -DataTable $O365.Incidents
+            }
+            Section -Name 'Incidents Extended' {
+                Table -DataTable $O365.IncidentsExteneded
+            }
+        }
+    }
+    Tab -Name 'Incidents Messages' {
+        Section -Invisible {
+            Section -Name 'Incidents Messages' {
+                Table -DataTable $O365.IncidentsMessages
+            }
+        }
+    }
+    Tab -Name 'Planned Maintenance' {
+        Section -Invisible {
+            Section {
+                Table -DataTable $O365.PlannedMaintenance
+            }
+            Section {
+                Table -DataTable $O365.PlannedMaintenanceExteneded
+            }
+        }
+    }
+}
+```
+
+### Example 2
 
 ``` PowerShell
 Import-Module PSWinDocumentation.O365HealthService -Force
@@ -38,6 +135,7 @@ Sway                                    Normal service      21.04.2019 16:54:19
 Yammer Enterprise                       Normal service      21.04.2019 16:54:19
 ```
 
+### Example 3
 
 
 ``` PowerShell
