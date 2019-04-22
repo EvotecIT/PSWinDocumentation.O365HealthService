@@ -5,7 +5,7 @@ $ApplicationID = ''
 $ApplicationKey = ''
 $TenantDomain = 'evotec.pl'
 
-$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
 
 Dashboard -FilePath $PSScriptRoot\Health.html -Show {
     Tab -Name 'Services' {
@@ -20,47 +20,47 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
     }
     Tab -Name 'Current Status' {
         Section -Invisible {
-            Section {
+            Section -Name 'Current Status' {
                 Table -DataTable $O365.CurrentStatus
             }
-            Section {
+            Section -Name 'Current Status Extended' {
                 Table -DataTable $O365.CurrentStatusExteneded
             }
         }
     }
     Tab -Name 'Historical Status' {
         Section -Invisible {
-            Section {
+            Section -Name 'Historical Status' {
                 Table -DataTable $O365.HistoricalStatus
             }
-            Section {
+            Section -Name 'Historical Status Extended' {
                 Table -DataTable $O365.HistoricalStatusExteneded
             }
         }
     }
     Tab -Name 'Message Center Information' {
         Section -Invisible {
-            Section {
+            Section -Name 'Message Center' {
                 Table -DataTable $O365.MessageCenterInformation
             }
-            Section {
+            Section -Name 'Message Center Extended' {
                 Table -DataTable $O365.MessageCenterInformationExtended -InvokeHTMLTags
             }
         }
     }
     Tab -Name 'Incidents' {
         Section -Invisible {
-            Section {
+            Section -Name 'Incidents' {
                 Table -DataTable $O365.Incidents
             }
-            Section {
+            Section -Name 'Incidents Extended' {
                 Table -DataTable $O365.IncidentsExteneded
             }
         }
     }
     Tab -Name 'Incidents Messages' {
         Section -Invisible {
-            Section {
+            Section -Name 'Incidents Messages' {
                 Table -DataTable $O365.IncidentsMessages
             }
         }
