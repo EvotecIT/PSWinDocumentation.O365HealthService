@@ -25,7 +25,7 @@ Import-Module Dashimo -Force
 
 $ApplicationID = ''
 $ApplicationKey = ''
-$TenantDomain = 'evotec.pl'
+$TenantDomain = 'evotec.pl' # Alternatively you can use DirectoryID from the Step by Step tutorial
 
 $O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
 
@@ -107,7 +107,7 @@ Import-Module PSWinDocumentation.O365HealthService -Force
 
 $ApplicationID = ''
 $ApplicationKey = ''
-$TenantDomain = 'evotec.pl'
+$TenantDomain = 'evotec.pl' # Alternatively you can use DirectoryID from the Step by Step tutorial
 
 $O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
 $O365.CurrentStatus | Format-Table -AutoSize
@@ -143,7 +143,7 @@ Import-Module PSWinDocumentation.O365HealthService -Force
 
 $ApplicationID = ''
 $ApplicationKey = ''
-$TenantDomain = 'evotec.pl'
+$TenantDomain = 'evotec.pl' # Alternatively you can use DirectoryID from the Step by Step tutorial
 
 $O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
 $O365.CurrentStatus | Format-Table -AutoSize

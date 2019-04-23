@@ -3,7 +3,7 @@ Import-Module Dashimo -Force
 
 $ApplicationID = ''
 $ApplicationKey = ''
-$TenantDomain = 'evotec.pl'
+$TenantDomain = 'evotec.pl' # Alternatively you can use DirectoryID
 
 $O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
 
