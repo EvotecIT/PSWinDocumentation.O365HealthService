@@ -15,8 +15,13 @@
         if ($null -eq $Time -or $Time -eq '') {
             return
         } else {
-            $Time = $Time -replace ', at', '' -replace 'UTC', ''
-            [DateTime] $ConvertedTime = [DateTime]::Parse($Time)
+            $NewTime = $Time -replace ', at', '' -replace 'UTC', '' -replace 'at' -replace '(^.+?,)'
+            try {
+                [DateTime] $ConvertedTime = [DateTime]::Parse($NewTime)
+            } catch {
+                Write-Warning "ConvertFrom-UTCTime - couldn't convert time. Please report on GitHub - $Time. Skipping conversion..."
+                return $Time
+            }
         }
     }
     if ($ToLocal) {
