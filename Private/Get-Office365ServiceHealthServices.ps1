@@ -13,7 +13,7 @@ function Get-Office365ServiceHealthServices {
         }
     }
 
-    $Output.Exteneded = foreach ($Service in $Services.Value) {
+    $Output.Extended = foreach ($Service in $Services.Value) {
         foreach ($Feature in  $Service.Features) {
             [PSCustomObject][ordered] @{
                 #ID                 = $Service.ID

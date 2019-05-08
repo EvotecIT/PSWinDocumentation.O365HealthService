@@ -19,7 +19,7 @@ function Get-Office365ServiceHealthCurrentStatus {
         }
     }
 
-    $Output.Exteneded = foreach ($Status in $CurrentStatus.Value) {
+    $Output.Extended = foreach ($Status in $CurrentStatus.Value) {
         foreach ($Feature in  $Status.FeatureStatus) {
             [PSCustomObject][ordered] @{
                 #ID                   = $Status.ID

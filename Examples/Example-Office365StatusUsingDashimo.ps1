@@ -3,18 +3,18 @@ Import-Module Dashimo -Force
 
 $ApplicationID = ''
 $ApplicationKey = ''
-$TenantDomain = 'evotec.pl' # Alternatively you can use DirectoryID
+$TenantDomain = 'evotec.pl' # CustomDomain (onmicrosoft.com won't work), alternatively you can use DirectoryID
 
 $O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
 
-Dashboard -FilePath $PSScriptRoot\Health.html -Show {
+Dashboard -FilePath $PSScriptRoot\Health.html {
     Tab -Name 'Services' {
         Section -Invisible {
             Section -Name 'Service List' {
                 Table -DataTable $O365.Services
             }
             Section -Name 'Service & Feature List' {
-                Table -DataTable $O365.ServicesExteneded
+                Table -DataTable $O365.ServicesExtended
             }
         }
     }
@@ -24,7 +24,7 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
                 Table -DataTable $O365.CurrentStatus
             }
             Section -Name 'Current Status Extended' {
-                Table -DataTable $O365.CurrentStatusExteneded
+                Table -DataTable $O365.CurrentStatusExtended
             }
         }
     }
@@ -34,7 +34,7 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
                 Table -DataTable $O365.HistoricalStatus
             }
             Section -Name 'Historical Status Extended' {
-                Table -DataTable $O365.HistoricalStatusExteneded
+                Table -DataTable $O365.HistoricalStatusExtended
             }
         }
     }
@@ -54,7 +54,7 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
                 Table -DataTable $O365.Incidents
             }
             Section -Name 'Incidents Extended' {
-                Table -DataTable $O365.IncidentsExteneded
+                Table -DataTable $O365.IncidentsExtended
             }
         }
     }
@@ -71,7 +71,7 @@ Dashboard -FilePath $PSScriptRoot\Health.html -Show {
                 Table -DataTable $O365.PlannedMaintenance
             }
             Section {
-                Table -DataTable $O365.PlannedMaintenanceExteneded
+                Table -DataTable $O365.PlannedMaintenanceExtended
             }
         }
     }

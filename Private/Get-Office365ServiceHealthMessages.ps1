@@ -36,7 +36,7 @@ function Get-Office365ServiceHealthMessages {
         }
     }
 
-    $Exteneded = foreach ($Message in $AllMessages.Value) {
+    $Extended = foreach ($Message in $AllMessages.Value) {
         $Messages = $Message.Messages
         foreach ($M in $Messages) {
             $LastUpdatedTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Message.LastUpdatedTime
@@ -94,7 +94,7 @@ function Get-Office365ServiceHealthMessages {
         }
     }
     # More information Message Center
-    $MessageCenterInformation = foreach ($_ in $Exteneded) {
+    $MessageCenterInformation = foreach ($_ in $Extended) {
         if ($_.MessageType -eq 'MessageCenter') { $_ }
     }
     $Output.MessageCenterInformation = foreach ($_ in $MessageCenterInformation) {
@@ -143,7 +143,7 @@ function Get-Office365ServiceHealthMessages {
         }
     }
     # More information Message Center
-    $Incidents = foreach ($_ in $Exteneded) {
+    $Incidents = foreach ($_ in $Extended) {
         if ($_.MessageType -eq 'Incident') { $_ }
     }
     $Output.Incidents = foreach ($_ in $Incidents) {
@@ -172,7 +172,7 @@ function Get-Office365ServiceHealthMessages {
         }
     }
 
-    $Output.Messages = foreach ($Entry in $Exteneded) {
+    $Output.Messages = foreach ($Entry in $Extended) {
         $LimitedEntry = foreach ($_ in $Entry) { if ($_.MessageType -eq 'Incident') { $_ }} # Faster Where-Object
         foreach ($_ in $LimitedEntry) {
             $Object = [PsCustomObject][Ordered] @{

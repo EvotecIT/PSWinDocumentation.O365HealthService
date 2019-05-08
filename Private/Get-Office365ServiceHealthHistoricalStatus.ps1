@@ -23,7 +23,7 @@ function Get-Office365ServiceHealthHistoricalStatus {
 
         }
     }
-    $Output.Exteneded = foreach ($Status in $HistoricalStatus.Value) {
+    $Output.Extended = foreach ($Status in $HistoricalStatus.Value) {
         foreach ($Feature in  $Status.FeatureStatus) {
             $StatusTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
             [PSCustomObject][ordered] @{

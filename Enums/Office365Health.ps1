@@ -7,17 +7,17 @@
         public enum Office365Health {
             All,
             Services,
-            ServicesExteneded,
+            ServicesExtended,
             CurrentStatus,
-            CurrentStatusExteneded,
+            CurrentStatusExtended,
             HistoricalStatus,
-            HistoricalStatusExteneded,
+            HistoricalStatusExtended,
             MessageCenterInformation,
             MessageCenterInformationExtended,
             Incidents,
-            IncidentsExteneded,
+            IncidentsExtended,
             PlannedMaintenance,
-            PlannedMaintenanceExteneded,
+            PlannedMaintenanceExtended,
             Messages
         }
     }

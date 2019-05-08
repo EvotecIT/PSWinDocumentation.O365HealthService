@@ -17,28 +17,28 @@ function Get-Office365Health {
     if ($null -ne $Authorization) {
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
                 [PSWinDocumentation.Office365Health]::Services,
-                [PSWinDocumentation.Office365Health]::ServicesExteneded)) {
+                [PSWinDocumentation.Office365Health]::ServicesExtended)) {
             $Services = Get-Office365ServiceHealthServices -Authorization $Authorization -TenantDomain $TenantDomain
         }
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
                 [PSWinDocumentation.Office365Health]::CurrentStatus,
-                [PSWinDocumentation.Office365Health]::CurrentStatusExteneded
+                [PSWinDocumentation.Office365Health]::CurrentStatusExtended
             )) {
             $CurrentStatus = Get-Office365ServiceHealthCurrentStatus -Authorization $Authorization -TenantDomain $TenantDomain -ToLocalTime:$ToLocalTime
         }
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
                 [PSWinDocumentation.Office365Health]::HistoricalStatus,
-                [PSWinDocumentation.Office365Health]::HistoricalStatusExteneded
+                [PSWinDocumentation.Office365Health]::HistoricalStatusExtended
             )) {
             $HistoricalStatus = Get-Office365ServiceHealthHistoricalStatus -Authorization $Authorization -TenantDomain $TenantDomain -ToLocalTime:$ToLocalTime
         }
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
                 [PSWinDocumentation.Office365Health]::Incidents,
-                [PSWinDocumentation.Office365Health]::IncidentsExteneded,
+                [PSWinDocumentation.Office365Health]::IncidentsExtended,
                 [PSWinDocumentation.Office365Health]::MessageCenterInformation,
                 [PSWinDocumentation.Office365Health]::MessageCenterInformationExtended,
                 [PSWinDocumentation.Office365Health]::PlannedMaintenance,
-                [PSWinDocumentation.Office365Health]::PlannedMaintenanceExteneded,
+                [PSWinDocumentation.Office365Health]::PlannedMaintenanceExtended,
                 [PSWinDocumentation.Office365Health]::Messages
             )) {
             $Messages = Get-Office365ServiceHealthMessages -Authorization $Authorization -TenantDomain $TenantDomain -ToLocalTime:$ToLocalTime
@@ -47,20 +47,20 @@ function Get-Office365Health {
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::Services)) {
             $Output.Services = $Services.Simple
         }
-        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::ServicesExteneded)) {
-            $Output.ServicesExteneded = $Services.Exteneded
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::ServicesExtended)) {
+            $Output.ServicesExtended = $Services.Extended
         }
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::CurrentStatus)) {
             $Output.CurrentStatus = $CurrentStatus.Simple
         }
-        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::CurrentStatusExteneded)) {
-            $Output.CurrentStatusExteneded = $CurrentStatus.Exteneded
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::CurrentStatusExtended)) {
+            $Output.CurrentStatusExtended = $CurrentStatus.Extended
         }
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::HistoricalStatus)) {
             $Output.HistoricalStatus = $HistoricalStatus.Simple
         }
-        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::HistoricalStatusExteneded)) {
-            $Output.HistoricalStatusExteneded = $HistoricalStatus.Exteneded
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::HistoricalStatusExtended)) {
+            $Output.HistoricalStatusExtended = $HistoricalStatus.Extended
         }
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::MessageCenterInformation)) {
             $Output.MessageCenterInformation = $Messages.MessageCenterInformationSimple | Sort-Object -Property LastUpdatedTime -Descending
@@ -74,14 +74,14 @@ function Get-Office365Health {
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::Messages)) {
             $Output.IncidentsMessages = $Messages.Messages | Sort-Object -Property PublishedTime -Descending
         }
-        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::IncidentsExteneded)) {
-            $Output.IncidentsExteneded = $Messages.Incidents | Sort-Object -Property LastUpdatedTime -Descending
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::IncidentsExtended)) {
+            $Output.IncidentsExtended = $Messages.Incidents | Sort-Object -Property LastUpdatedTime -Descending
         }
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::PlannedMaintenance)) {
             $Output.PlannedMaintenance = $Messages.PlannedMaintenanceSimple | Sort-Object -Property LastUpdatedTime -Descending
         }
-        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::PlannedMaintenanceExteneded)) {
-            $Output.PlannedMaintenanceExteneded = $Messages.PlannedMaintenance | Sort-Object -Property LastUpdatedTime -Descending
+        if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @([PSWinDocumentation.Office365Health]::PlannedMaintenanceExtended)) {
+            $Output.PlannedMaintenanceExtended = $Messages.PlannedMaintenance | Sort-Object -Property LastUpdatedTime -Descending
         }
         $EndTime = Stop-TimeLog -Time $StartTime -Option OneLiner
         Write-Verbose "Get-Office365Health - Time to process: $EndTime"
