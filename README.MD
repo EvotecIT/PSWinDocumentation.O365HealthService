@@ -15,6 +15,10 @@
 - 0.1.0 - 22.04.2019
   - First public release
 
+
+![Image](https://evotec.xyz/wp-content/uploads/2019/05/img_5cd34ae647da9.png)
+
+
 ### Install
 
 ```
@@ -24,7 +28,7 @@ Install-Module PSWinDocumentation.O365HealthService -Force
 
 ### Example 1
 
-Here's a live demo generated using Dashimo: https://evotec.xyz/wp-content/uploads/2019/04/Health.html
+Here's a live demo generated using Dashimo: https://evotec.xyz/wp-content/uploads/2019/05/Health.html
 
 ```powershell
 Import-Module PSWinDocumentation.O365HealthService -Force
