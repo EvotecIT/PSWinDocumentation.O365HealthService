@@ -7,6 +7,13 @@
 - How to/What it really use and how you can use it: https://evotec.xyz/powershell-way-to-get-all-information-about-office-365-service-health/
 - Step by Step to Get App ID and App Key: https://evotec.xyz/preparing-azure-app-registrations-permissions-for-office-365-health-service/
 
+### Changelog
+- 0.2.1 - 08.05.2019
+  - Fix for mispelled extended word (sorry)
+- 0.2.0 - 03.05.2019
+  - Fix for date changes that Microsoft introduced
+- 0.1.0 - 22.04.2019
+  - First public release
 
 ### Install
 
