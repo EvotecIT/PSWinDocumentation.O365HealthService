@@ -221,9 +221,9 @@ function Get-Office365ServiceHealthMessages {
         }
     }
     #$Output.IncidentsSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'Incident') { $_ }}
-    #$Output.Incidents = foreach ($_ in $Exteneded) { if ($_.MessageType -eq 'Incident') { $_ }}
+    #$Output.Incidents = foreach ($_ in $Extended) { if ($_.MessageType -eq 'Incident') { $_ }}
 
     $Output.PlannedMaintenanceSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ }}
-    $Output.PlannedMaintenance = foreach ($_ in $Exteneded) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ }}
+    $Output.PlannedMaintenance = foreach ($_ in $Extended) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ }}
     return $Output
 }

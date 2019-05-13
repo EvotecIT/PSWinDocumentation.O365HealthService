@@ -8,6 +8,8 @@
 - Step by Step to Get App ID and App Key: https://evotec.xyz/preparing-azure-app-registrations-permissions-for-office-365-health-service/
 
 ### Changelog
+- 0.2.2 - 13.05.2019
+  - Fix for mispelled extended word (sorry again..)
 - 0.2.1 - 08.05.2019
   - Fix for mispelled extended word (sorry)
 - 0.2.0 - 03.05.2019
