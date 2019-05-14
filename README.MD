@@ -1,4 +1,17 @@
-﻿# PSWinDocumentation.O365HealthService - PowerShell Module
+﻿<center>
+
+[![PowerShellGallery Version](https://img.shields.io/powershellgallery/v/PSWinDocumentation.O365HealthService.svg)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
+
+[![PowerShellGallery Platform](https://img.shields.io/powershellgallery/p/PSWinDocumentation.O365HealthService.svg)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
+[![PowerShellGallery Preview Version](https://img.shields.io/powershellgallery/vpre/PSWinDocumentation.O365HealthService.svg?label=powershell%20gallery%20preview&colorB=yellow)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
+
+![Top Language](https://img.shields.io/github/languages/top/evotecit/PSWinDocumentation.O365HealthService.svg)
+![Code](https://img.shields.io/github/languages/code-size/evotecit/PSWinDocumentation.O365HealthService.svg)
+[![PowerShellGallery Downloads](https://img.shields.io/powershellgallery/dt/PSWinDocumentation.O365HealthService.svg)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
+
+</center>
+
+# PSWinDocumentation.O365HealthService - PowerShell Module
 
 `PSWinDocumentation.O365HealthService` is a Powershell module that has a single goal of getting Office 365 Health Status
 
