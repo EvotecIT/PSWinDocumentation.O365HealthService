@@ -1,4 +1,5 @@
 function Get-Office365ServiceHealthServices {
+    [CmdLetbinding()]
     param(
         [System.Collections.IDictionary] $Authorization,
         [string] $TenantDomain

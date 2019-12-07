@@ -1,4 +1,5 @@
 function Connect-O365ServiceHealth {
+    [CmdLetbinding()]
     param(
         [string][alias('ClientID')] $ApplicationID,
         [string][alias('ClientSecret')] $ApplicationKey,
@@ -17,7 +18,7 @@ function Connect-O365ServiceHealth {
         Write-Warning -Message "Connect-O365ServiceHealth - Error: $ErrorMessage"
     }
     if ($Authorization) {
-        @{'Authorization' = "$($Authorization.token_type) $($Authorization.access_token)"}
+        @{'Authorization' = "$($Authorization.token_type) $($Authorization.access_token)" }
     } else {
         $null
     }

@@ -1,13 +1,23 @@
 ﻿<center>
 
-[![PowerShellGallery Version](https://img.shields.io/powershellgallery/v/PSWinDocumentation.O365HealthService.svg)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
+<p align="center">
+  <a href="https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/powershellgallery/v/PSWinDocumentation.O365HealthService.svg"></a>
+  <a href="https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/powershellgallery/vpre/PSWinDocumentation.O365HealthService.svg?label=powershell%20gallery%20preview&colorB=yellow"></a>
+  <a href="https://github.com/EvotecIT/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/github/license/EvotecIT/PSWinDocumentation.O365HealthService.svg"></a>
+</p>
 
-[![PowerShellGallery Platform](https://img.shields.io/powershellgallery/p/PSWinDocumentation.O365HealthService.svg)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
-[![PowerShellGallery Preview Version](https://img.shields.io/powershellgallery/vpre/PSWinDocumentation.O365HealthService.svg?label=powershell%20gallery%20preview&colorB=yellow)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
+<p align="center">
+  <a href="https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/powershellgallery/p/PSWinDocumentation.O365HealthService.svg"></a>
+  <a href="https://github.com/EvotecIT/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/github/languages/top/evotecit/PSWinDocumentation.O365HealthService.svg"></a>
+  <a href="https://github.com/EvotecIT/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/github/languages/code-size/evotecit/PSWinDocumentation.O365HealthService.svg"></a>
+  <a href="https://github.com/EvotecIT/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/powershellgallery/dt/PSWinDocumentation.O365HealthService.svg"></a>
+</p>
 
-![Top Language](https://img.shields.io/github/languages/top/evotecit/PSWinDocumentation.O365HealthService.svg)
-![Code](https://img.shields.io/github/languages/code-size/evotecit/PSWinDocumentation.O365HealthService.svg)
-[![PowerShellGallery Downloads](https://img.shields.io/powershellgallery/dt/PSWinDocumentation.O365HealthService.svg)](https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService)
+<p align="center">
+  <a href="https://twitter.com/PrzemyslawKlys"><img src="https://img.shields.io/twitter/follow/PrzemyslawKlys.svg?label=Twitter%20%40PrzemyslawKlys&style=social"></a>
+  <a href="https://evotec.xyz/hub"><img src="https://img.shields.io/badge/Blog-evotec.xyz-2A6496.svg"></a>
+  <a href="https://www.linkedin.com/in/pklys"><img src="https://img.shields.io/badge/LinkedIn-pklys-0077B5.svg?logo=LinkedIn"></a>
+</p>
 
 </center>
 
@@ -15,12 +25,16 @@
 
 `PSWinDocumentation.O365HealthService` is a Powershell module that has a single goal of getting Office 365 Health Status
 
-### Overview:
+## Overview
 
 - How to/What it really use and how you can use it: https://evotec.xyz/powershell-way-to-get-all-information-about-office-365-service-health/
 - Step by Step to Get App ID and App Key: https://evotec.xyz/preparing-azure-app-registrations-permissions-for-office-365-health-service/
 
 ### Changelog
+
+- 0.2.3 - 7.11.2019
+  - Optimized module removing depedencies (PSSharedGoods) on release
+    - It's still used during development
 - 0.2.2 - 13.05.2019
   - Fix for mispelled extended word (sorry again..)
 - 0.2.1 - 08.05.2019
@@ -30,13 +44,11 @@
 - 0.1.0 - 22.04.2019
   - First public release
 
-
 ![Image](https://evotec.xyz/wp-content/uploads/2019/05/img_5cd34ae647da9.png)
-
 
 ### Install
 
-```
+```powershell
 Install-Module PSWinDocumentation.O365HealthService -Force
 ```
 

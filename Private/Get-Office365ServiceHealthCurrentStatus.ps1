@@ -1,4 +1,5 @@
 function Get-Office365ServiceHealthCurrentStatus {
+    [CmdLetbinding()]
     param(
         [System.Collections.IDictionary] $Authorization,
         [string] $TenantDomain,
