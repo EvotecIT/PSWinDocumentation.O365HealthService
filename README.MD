@@ -32,6 +32,9 @@
 
 ### Changelog
 
+- 0.2.4. -13.12.2019
+  - Enforces TLS 1.2 as it may be problematic otherwise. Hopefully doesn't break anything
+    - Added parameter `TlsDefault` to `Get-Office365Health -TlsDefault` as a way to circumvent that new feature, just in case. Subject to removal later on
 - 0.2.3 - 7.11.2019
   - Optimized module removing depedencies (PSSharedGoods) on release
     - It's still used during development
