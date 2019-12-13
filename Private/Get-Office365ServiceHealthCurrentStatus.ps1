@@ -5,9 +5,14 @@ function Get-Office365ServiceHealthCurrentStatus {
         [string] $TenantDomain,
         [switch] $ToLocalTime
     )
-    $CurrentStatus = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/CurrentStatus" -Headers $Authorization -Method Get)
-
-    $Output = @{}
+    try {
+        $CurrentStatus = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/CurrentStatus" -Headers $Authorization -Method Get)
+    } catch {
+        $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
+        Write-Warning -Message "Get-Office365ServiceHealthCurrentStatus - Error: $ErrorMessage"
+        return
+    }
+    $Output = @{ }
     $Output.Simple = foreach ($Status in $CurrentStatus.Value) {
         [PSCustomObject][ordered] @{
             #ID          = $Status.ID

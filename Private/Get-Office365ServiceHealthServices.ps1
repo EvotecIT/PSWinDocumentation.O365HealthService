@@ -4,9 +4,14 @@ function Get-Office365ServiceHealthServices {
         [System.Collections.IDictionary] $Authorization,
         [string] $TenantDomain
     )
-    $Services = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/Services" -Headers $Authorization -Method Get)
-
-    $Output = @{}
+    try {
+        $Services = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/Services" -Headers $Authorization -Method Get)
+    } catch {
+        $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
+        Write-Warning -Message "Get-Office365ServiceHealthServices - Error: $ErrorMessage"
+        return
+    }
+    $Output = @{ }
     $Output.Simple = foreach ($Service in $Services.Value) {
         [PSCustomObject][ordered] @{
             #ID          = $Service.ID

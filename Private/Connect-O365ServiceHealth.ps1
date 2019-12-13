@@ -3,7 +3,8 @@ function Connect-O365ServiceHealth {
     param(
         [string][alias('ClientID')] $ApplicationID,
         [string][alias('ClientSecret')] $ApplicationKey,
-        [string] $TenantDomain
+        [string] $TenantDomain,
+        [switch] $TlsDefault
     )
     $Body = @{
         grant_type    = "client_credentials"
@@ -12,7 +13,9 @@ function Connect-O365ServiceHealth {
         client_secret = $ApplicationKey
     }
     try {
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        if (-not $TlsDefault) {
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        }
         $Authorization = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonline.com/$($TenantDomain)/oauth2/token?api-version=1.0" -Body $body -ErrorAction Stop
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "

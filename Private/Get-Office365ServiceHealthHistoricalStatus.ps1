@@ -5,9 +5,15 @@ function Get-Office365ServiceHealthHistoricalStatus {
         [string] $TenantDomain,
         [switch] $ToLocalTime
     )
-    $HistoricalStatus = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/HistoricalStatus" -Headers $Authorization -Method Get)
+    try {
+        $HistoricalStatus = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/HistoricalStatus" -Headers $Authorization -Method Get)
+    } catch {
+        $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
+        Write-Warning -Message "Get-Office365ServiceHealthHistoricalStatus - Error: $ErrorMessage"
+        return
+    }
 
-    $Output = @{}
+    $Output = @{ }
     $Output.Simple = foreach ($Status in $HistoricalStatus.Value) {
         $StatusTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
         [PSCustomObject][ordered] @{

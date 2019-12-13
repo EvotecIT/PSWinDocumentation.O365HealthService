@@ -5,7 +5,8 @@ function Get-Office365Health {
         [string][alias('ClientSecret')] $ApplicationKey,
         [string] $TenantDomain,
         [PSWinDocumentation.Office365Health[]] $TypesRequired = [PSWinDocumentation.Office365Health]::All,
-        [switch] $ToLocalTime
+        [switch] $ToLocalTime,
+        [switch] $TlsDefault
     )
     $StartTime = Start-TimeLog
     $Script:TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone).Bias
@@ -13,7 +14,7 @@ function Get-Office365Health {
     if ($null -eq $TypesRequired -or $TypesRequired -contains [PSWinDocumentation.Office365Health]::All) {
         $TypesRequired = Get-Types -Types ([PSWinDocumentation.Office365Health])
     }
-    $Authorization = Connect-O365ServiceHealth -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain
+    $Authorization = Connect-O365ServiceHealth -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -TlsDefault:$TlsDefault
     if ($null -ne $Authorization) {
         if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
                 [PSWinDocumentation.Office365Health]::Services,

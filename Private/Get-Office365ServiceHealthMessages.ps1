@@ -5,9 +5,14 @@ function Get-Office365ServiceHealthMessages {
         [string] $TenantDomain,
         [switch] $ToLocalTime
     )
-    $AllMessages = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/Messages" -Headers $Authorization -Method Get)
-
-    $Output = @{}
+    try {
+        $AllMessages = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/Messages" -Headers $Authorization -Method Get)
+    } catch {
+        $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
+        Write-Warning -Message "Get-Office365ServiceHealthMessages - Error: $ErrorMessage"
+        return
+    }
+    $Output = @{ }
     $Simple = foreach ($Message in $AllMessages.Value) {
         $LastUpdatedTime = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Message.LastUpdatedTime
         [PSCustomObject][ordered] @{
@@ -174,7 +179,7 @@ function Get-Office365ServiceHealthMessages {
     }
 
     $Output.Messages = foreach ($Entry in $Extended) {
-        $LimitedEntry = foreach ($_ in $Entry) { if ($_.MessageType -eq 'Incident') { $_ }} # Faster Where-Object
+        $LimitedEntry = foreach ($_ in $Entry) { if ($_.MessageType -eq 'Incident') { $_ } } # Faster Where-Object
         foreach ($_ in $LimitedEntry) {
             $Object = [PsCustomObject][Ordered] @{
                 Service              = $_.Workload
@@ -224,7 +229,7 @@ function Get-Office365ServiceHealthMessages {
     #$Output.IncidentsSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'Incident') { $_ }}
     #$Output.Incidents = foreach ($_ in $Extended) { if ($_.MessageType -eq 'Incident') { $_ }}
 
-    $Output.PlannedMaintenanceSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ }}
-    $Output.PlannedMaintenance = foreach ($_ in $Extended) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ }}
+    $Output.PlannedMaintenanceSimple = foreach ($_ in $Simple) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ } }
+    $Output.PlannedMaintenance = foreach ($_ in $Extended) { if ($_.MessageType -eq 'PlannedMaintenance') { $_ } }
     return $Output
 }
