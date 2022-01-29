@@ -8,7 +8,7 @@ function Connect-O365ServiceHealth {
     )
     $Body = @{
         grant_type    = "client_credentials"
-        resource      = "https://manage.office.com"
+        scope         = "https://graph.microsoft.com/.default"
         client_id     = $ApplicationID
         client_secret = $ApplicationKey
     }
@@ -16,7 +16,7 @@ function Connect-O365ServiceHealth {
         if (-not $TlsDefault) {
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
         }
-        $Authorization = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonline.com/$($TenantDomain)/oauth2/token?api-version=1.0" -Body $body -ErrorAction Stop
+        $Authorization = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonline.com/$($TenantDomain)/oauth2/v2.0/token" -Body $body -ErrorAction Stop
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Connect-O365ServiceHealth - Error: $ErrorMessage"
