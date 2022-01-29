@@ -5,7 +5,6 @@
     )
     try {
         $AllMessages = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues" -Method GET -Headers $Authorization -FullUri
-        #$AllMessages = (Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues" -Headers $Authorization -Method Get)
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Get-Office365ServiceHealthIssues - Error: $ErrorMessage"
@@ -17,16 +16,16 @@
             Id              = $Message.Id
             Title           = $Message.Title
             Impact          = $Message.impactDescription
-            HighImpact      = $Message.highImpact
-            classification  = $Message.classification
-            origin          = $Message.origin
+            IsResolved      = $Message.IsResolved
+            # HighImpact      = $Message.highImpact
+            Classification  = $Message.classification
+            Origin          = $Message.origin
             Service         = $Message.service
             LastUpdatedTime = $Message.lastModifiedDateTime
             LastUpdatedDays = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
-            status          = $Message.status
-            feature         = $Message.feature
-            featureGroup    = $Message.featureGroup
-            IsResolved      = $Message.IsResolved
+            Status          = $Message.status
+            Feature         = $Message.feature
+            FeatureGroup    = $Message.featureGroup
             NotifyInApp     = ($Message.details | Where-Object { $_.Name -eq 'NotifyInApp' }).Value -eq $true
             UpdatesCount    = $Message.posts.count
         }
@@ -36,16 +35,16 @@
             Id              = $Message.Id
             Title           = $Message.Title
             Impact          = $Message.impactDescription
-            HighImpact      = $Message.highImpact
-            classification  = $Message.classification
-            origin          = $Message.origin
+            IsResolved      = $Message.IsResolved
+            # HighImpact      = $Message.highImpact
+            Classification  = $Message.classification
+            Origin          = $Message.origin
             Service         = $Message.service
             LastUpdatedTime = $Message.lastModifiedDateTime
             LastUpdatedDays = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
-            status          = $Message.status
-            feature         = $Message.feature
-            featureGroup    = $Message.featureGroup
-            IsResolved      = $Message.IsResolved
+            Status          = $Message.status
+            Feature         = $Message.feature
+            FeatureGroup    = $Message.featureGroup
             NotifyInApp     = ($Message.details | Where-Object { $_.Name -eq 'NotifyInApp' }).Value -eq $true
             UpdatesCount    = $Message.posts.count
             Updates         = $Message.Posts | ForEach-Object {

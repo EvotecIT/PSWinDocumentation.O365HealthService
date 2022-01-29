@@ -5,8 +5,6 @@ function Get-Office365ServiceHealthMessages {
     )
     try {
         $AllMessages = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/messages" -Method GET -Headers $Authorization -FullUri
-
-        #$AllMessages = (Invoke-RestMethod -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/messages" -Headers $Authorization -Method Get)
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Get-Office365ServiceHealthMessages - Error: $ErrorMessage"
@@ -22,13 +20,14 @@ function Get-Office365ServiceHealthMessages {
             LastUpdatedTime          = $Message.lastModifiedDateTime
             LastUpdatedDays          = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
             ActionRequiredByDateTime = $Message.actionRequiredByDateTime
-            ActionRequiredDays       = if ($ActionRequiredDays -eq 0) { $null } else { $ActionRequiredDays }
+            ActionRequiredDays       = if ($ActionRequiredDays -eq 0) { $null } else { - $ActionRequiredDays }
             Tags                     = $Message.Tags
-            Roadmap                  = ($Message.details | Where-Object { $_.name -eq 'roadmapids' }).Value
+            RoadmapId                = ($Message.details | Where-Object { $_.name -eq 'roadmapids' }).Value
             Category                 = $Message.category
         }
     }
     $Output.MessageCenterInformationExtended = foreach ($Message in $AllMessages) {
+        $ActionRequiredDays = Convert-TimeToDays -StartTime $Message.actionRequiredByDateTime -EndTime $Script:Today
         [PSCustomObject] @{
             Id                       = $Message.Id
             Title                    = $Message.Title
@@ -36,17 +35,19 @@ function Get-Office365ServiceHealthMessages {
             LastUpdatedTime          = $Message.lastModifiedDateTime
             LastUpdatedDays          = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
             ActionRequiredByDateTime = $Message.actionRequiredByDateTime
-            ActionRequiredDays       = if ($ActionRequiredDays -eq 0) { $null } else { $ActionRequiredDays }
+            ActionRequiredDays       = if ($ActionRequiredDays -eq 0) { $null } else { - $ActionRequiredDays }
             Tags                     = $Message.Tags
-            Roadmap                  = ($Message.details | Where-Object { $_.name -eq 'roadmapids' }).Value
+            Bloglink                 = ($Message.details | Where-Object { $_.name -eq 'bloglink' }).Value
+            RoadmapId                = ($Message.details | Where-Object { $_.name -eq 'roadmapids' }).Value
+            RoadmapIdLinks           = ($Message.details | Where-Object { $_.name -eq 'roadmapids' }).Value | ForEach-Object {
+                "https://www.microsoft.com/en-us/microsoft-365/roadmap?filters=&searchterms=$_"
+            }
             Category                 = $Message.category
             IsMajorChange            = $Message.isMajorChange
             Severity                 = $Message.Severity
             StartTime                = $Message.startDateTime
             EndTime                  = $Message.endDateTime
-            Bloglink                 = ($Message.details | Where-Object { $_.name -eq 'bloglink' }).Value
             Message                  = $Message.body.content
-            ViewPoint                = $Message.viewPoint
         }
     }
     $Output
