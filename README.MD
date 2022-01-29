@@ -32,6 +32,14 @@
 
 ### Changelog
 
+- 1.0.0 - 29.01.2022
+  - Microsoft disabled the Health Service API. Migrated code to Graph API.
+  - There are **breaking changes** on the output (aka a bit differently formatted information), less types, different columns, etc.
+  - Check examples for more information.
+  - Permission requirements changed
+
+![https://evotec.xyz/wp-content/uploads/2022/01/img_61f59e2b000c3.png](https://evotec.xyz/wp-content/uploads/2022/01/img_61f59e2b000c3.png)
+
 - 0.2.4. -13.12.2019
   - Enforces TLS 1.2 as it may be problematic otherwise. Hopefully doesn't break anything
     - Added parameter `TlsDefault` to `Get-Office365Health -TlsDefault` as a way to circumvent that new feature, just in case. Subject to removal later on
@@ -62,83 +70,65 @@ Here's a live demo generated using Dashimo: https://evotec.xyz/wp-content/upload
 
 ```powershell
 Import-Module PSWinDocumentation.O365HealthService -Force
-Import-Module Dashimo -Force
+Import-Module PSWriteHTML -Force
 
 $ApplicationID = ''
 $ApplicationKey = ''
 $TenantDomain = 'evotec.pl' # CustomDomain (onmicrosoft.com won't work), alternatively you can use DirectoryID
 
-$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -Verbose
 
-Dashboard -FilePath $PSScriptRoot\Health.html -Show {
+Dashboard -FilePath $PSScriptRoot\Health.html {
+    TabOption -BorderRadius 0px -BackgroundColorActive DimGrey
+    SectionOption -BorderRadius 0px -HeaderBackGroundColor DimGrey
+    TableOption -DataStore JavaScript -ArrayJoinString "; " -ArrayJoin -BoolAsString
     Tab -Name 'Services' {
-        Section -Invisible {
-            Section -Name 'Service List' {
-                Table -DataTable $O365.Services
-            }
-            Section -Name 'Service & Feature List' {
-                Table -DataTable $O365.ServicesExtended
-            }
+        Section -Name 'Service List' {
+            Table -DataTable $O365.Services -Filtering
         }
     }
     Tab -Name 'Current Status' {
         Section -Invisible {
             Section -Name 'Current Status' {
-                Table -DataTable $O365.CurrentStatus
+                Table -DataTable $O365.CurrentStatus {
+                    TableCondition -Name 'ServiceStatus' -Value 'serviceOperational' -BackgroundColor MintGreen -FailBackgroundColor Salmon
+                } -Filtering
             }
             Section -Name 'Current Status Extended' {
-                Table -DataTable $O365.CurrentStatusExtended
-            }
-        }
-    }
-    Tab -Name 'Historical Status' {
-        Section -Invisible {
-            Section -Name 'Historical Status' {
-                Table -DataTable $O365.HistoricalStatus
-            }
-            Section -Name 'Historical Status Extended' {
-                Table -DataTable $O365.HistoricalStatusExtended
+                Table -DataTable $O365.CurrentStatusExtended {
+                    TableCondition -Name 'ServiceStatus' -Value 'serviceOperational' -BackgroundColor MintGreen -FailBackgroundColor Salmon
+                } -Filtering
             }
         }
     }
     Tab -Name 'Message Center Information' {
-        Section -Invisible {
-            Section -Name 'Message Center' {
-                Table -DataTable $O365.MessageCenterInformation
-            }
-            Section -Name 'Message Center Extended' {
-                Table -DataTable $O365.MessageCenterInformationExtended -InvokeHTMLTags
-            }
+        #Section -Invisible {
+        Section -Name 'Message Center' {
+            Table -DataTable $O365.MessageCenterInformation -Filtering
         }
+        Section -Name 'Message Center Extended' {
+            Table -DataTable $O365.MessageCenterInformationExtended -InvokeHTMLTags -Filtering
+        }
+        #}
     }
     Tab -Name 'Incidents' {
         Section -Invisible {
             Section -Name 'Incidents' {
-                Table -DataTable $O365.Incidents
+                Table -DataTable $O365.Incidents -Filtering {
+                    TableCondition -Name 'IsResolved' -Value $true -BackgroundColor MintGreen -FailBackgroundColor Salmon -ComparisonType bool
+                }
             }
             Section -Name 'Incidents Extended' {
-                Table -DataTable $O365.IncidentsExtended
+                Table -DataTable $O365.IncidentsExtended -Filtering {
+                    TableCondition -Name 'IsResolved' -Value $true -BackgroundColor MintGreen -FailBackgroundColor Salmon -ComparisonType bool
+                }
             }
         }
-    }
-    Tab -Name 'Incidents Messages' {
-        Section -Invisible {
-            Section -Name 'Incidents Messages' {
-                Table -DataTable $O365.IncidentsMessages
-            }
+        Section -Name 'Incidents Messages' {
+            Table -DataTable $O365.IncidentsUpdates -InvokeHTMLTags -Filtering
         }
     }
-    Tab -Name 'Planned Maintenance' {
-        Section -Invisible {
-            Section {
-                Table -DataTable $O365.PlannedMaintenance
-            }
-            Section {
-                Table -DataTable $O365.PlannedMaintenanceExtended
-            }
-        }
-    }
-}
+} -Online -ShowHTML
 ```
 
 ### Example 2
@@ -150,7 +140,7 @@ $ApplicationID = ''
 $ApplicationKey = ''
 $TenantDomain = 'evotec.pl' # CustomDomain (onmicrosoft.com won't work), alternatively you can use DirectoryID
 
-$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -Verbose
 $O365.CurrentStatus | Format-Table -AutoSize
 
 ```
@@ -186,7 +176,7 @@ $ApplicationID = ''
 $ApplicationKey = ''
 $TenantDomain = 'evotec.pl' # CustomDomain (onmicrosoft.com won't work), alternatively you can use DirectoryID
 
-$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -Verbose
 $O365.CurrentStatus | Format-Table -AutoSize
 
 ```
@@ -195,56 +185,34 @@ Output:
 
 ```
 
-Service                                 ServiceStatus       Feature                        FeatureStatus       IncidentIds StatusTime
--------                                 -------------       -------                        -------------       ----------- ----------
-Exchange Online                         Restoring service   Sign-in                        Normal service      EX177902    21.04.2019 16:54:19
-Exchange Online                         Restoring service   E-Mail and calendar access     Normal service      EX177902    21.04.2019 16:54:19
-Exchange Online                         Restoring service   E-Mail timely delivery         Normal service      EX177902    21.04.2019 16:54:19
-Exchange Online                         Restoring service   Management and Provisioning    Restoring service   EX177902    21.04.2019 16:54:19
-Exchange Online                         Restoring service   Voice mail                     Normal service      EX177902    21.04.2019 16:54:19
-Microsoft Kaizala                       Normal service      Kaizala Messaging              Normal service                  21.04.2019 16:54:19
-Microsoft Kaizala                       Normal service      Kaizala Management Portal      Normal service                  21.04.2019 16:54:19
-Skype for Business                      Service degradation Audio and Video                Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Federation                     Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Management and Provisioning    Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Sign-In                        Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation All Features                   Service degradation LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Dial-In Conferencing           Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Online Meetings                Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Instant Messaging              Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Presence                       Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Mobility                       Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Cloud PBX                      Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation PSTN Calling                   Normal service      LY177449    21.04.2019 16:54:19
-Skype for Business                      Service degradation Meeting Broadcast              Normal service      LY177449    21.04.2019 16:54:19
-Microsoft Teams                         Normal service      Teams Components               Normal service                  21.04.2019 16:54:19
-Mobile Device Management for Office 365 Normal service      Mobile Device Management       Normal service                  21.04.2019 16:54:19
-Office Online                           Normal service      Excel Online                   Normal service                  21.04.2019 16:54:19
-Office Online                           Normal service      OneNote Online                 Normal service                  21.04.2019 16:54:19
-Office Online                           Normal service      PowerPoint Online              Normal service                  21.04.2019 16:54:19
-Office Online                           Normal service      Word Online                    Normal service                  21.04.2019 16:54:19
-Office Online                           Normal service      Visio Online                   Normal service                  21.04.2019 16:54:19
-OneDrive for Business                   Normal service      OneDrive for Business          Normal service                  21.04.2019 16:54:19
-Identity Service                        Normal service      Sign-In                        Normal service                  21.04.2019 16:54:19
-Identity Service                        Normal service      Administration                 Normal service                  21.04.2019 16:54:19
-Office 365 Portal                       Normal service      Portal                         Normal service                  21.04.2019 16:54:19
-Office 365 Portal                       Normal service      Administration                 Normal service                  21.04.2019 16:54:19
-Office 365 Portal                       Normal service      Purchase and Billing           Normal service                  21.04.2019 16:54:19
-Planner                                 Normal service      Planner                        Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      Provisioning                   Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      SharePoint Features            Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      Tenant Admin                   Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      Search and Delve               Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      Custom Solutions and Workflows Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      Project Online                 Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      Office Web Apps                Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      SP Designer                    Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      Access Services                Normal service                  21.04.2019 16:54:19
-SharePoint Online                       Normal service      InfoPath Online                Normal service                  21.04.2019 16:54:19
-Microsoft StaffHub                      Normal service      Service and web access issues  Normal service                  21.04.2019 16:54:19
-Microsoft StaffHub                      Normal service      Web client issues              Normal service                  21.04.2019 16:54:19
-Microsoft StaffHub                      Normal service      Android client issues          Normal service                  21.04.2019 16:54:19
-Microsoft StaffHub                      Normal service      iOS client issues              Normal service                  21.04.2019 16:54:19
-Sway                                    Normal service      Sway                           Normal service                  21.04.2019 16:54:19
-Yammer Enterprise                       Normal service      Yammer Components              Normal service                  21.04.2019 16:54:19
+ID                       Service                                   ServiceStatus      StatusTime          Incidents
+--                       -------                                   -------------      ----------          ---------
+Exchange                 Exchange Online                           serviceDegradation 29.01.2022 21:14:47 {EX316072, EX316697}
+OrgLiveID                Identity Service                          serviceOperational 29.01.2022 21:14:47
+OSDPPlatform             Microsoft 365 suite                       serviceOperational 29.01.2022 21:14:47
+Lync                     Skype for Business                        serviceOperational 29.01.2022 21:14:47
+SharePoint               SharePoint Online                         serviceOperational 29.01.2022 21:14:47
+DynamicsCRM              Dynamics 365 Apps                         serviceOperational 29.01.2022 21:14:47
+RMS                      Azure Information Protection              serviceOperational 29.01.2022 21:14:47
+yammer                   Yammer Enterprise                         serviceOperational 29.01.2022 21:14:47
+MobileDeviceManagement   Mobile Device Management for Office 365   serviceOperational 29.01.2022 21:14:47
+Planner                  Planner                                   serviceOperational 29.01.2022 21:14:47
+SwayEnterprise           Sway                                      serviceOperational 29.01.2022 21:14:47
+PowerBIcom               Power BI                                  serviceOperational 29.01.2022 21:14:47
+Intune                   Microsoft Intune                          serviceOperational 29.01.2022 21:14:47
+OneDriveForBusiness      OneDrive for Business                     serviceOperational 29.01.2022 21:14:47
+microsoftteams           Microsoft Teams                           serviceOperational 29.01.2022 21:14:47
+StaffHub                 Microsoft StaffHub                        serviceOperational 29.01.2022 21:14:47
+kaizalamessagingservices Microsoft Kaizala                         serviceOperational 29.01.2022 21:14:47
+Bookings                 Microsoft Bookings                        serviceOperational 29.01.2022 21:14:47
+officeonline             Office for the web                        serviceOperational 29.01.2022 21:14:47
+O365Client               Microsoft 365 Apps                        serviceOperational 29.01.2022 21:14:47
+PowerAppsM365            Power Apps in Microsoft 365               serviceOperational 29.01.2022 21:14:47
+MicrosoftFlow            Microsoft Power Automate                  serviceOperational 29.01.2022 21:14:47
+MicrosoftFlowM365        Microsoft Power Automate in Microsoft 365 serviceOperational 29.01.2022 21:14:47
+Forms                    Microsoft Forms                           serviceOperational 29.01.2022 21:14:47
+Microsoft365Defender     Microsoft 365 Defender                    serviceOperational 29.01.2022 21:14:47
+Stream                   Microsoft Stream                          serviceOperational 29.01.2022 21:14:47
+Viva                     Microsoft Viva                            serviceOperational 29.01.2022 21:14:47
+cloudappsecurity         Microsoft Defender for Cloud Apps         serviceOperational 29.01.2022 21:14:47
 ```
