@@ -1,78 +1,60 @@
 ﻿Import-Module PSWinDocumentation.O365HealthService -Force
-Import-Module Dashimo -Force
+Import-Module PSWriteHTML -Force
 
 $ApplicationID = ''
 $ApplicationKey = ''
 $TenantDomain = 'evotec.pl' # CustomDomain (onmicrosoft.com won't work), alternatively you can use DirectoryID
 
-$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -ToLocalTime -Verbose
+$O365 = Get-Office365Health -ApplicationID $ApplicationID -ApplicationKey $ApplicationKey -TenantDomain $TenantDomain -Verbose 
 
 Dashboard -FilePath $PSScriptRoot\Health.html {
+    TabOption -BorderRadius 0px -BackgroundColorActive DimGrey
+    SectionOption -BorderRadius 0px -HeaderBackGroundColor DimGrey
+    TableOption -DataStore JavaScript -ArrayJoinString "; " -ArrayJoin -BoolAsString
     Tab -Name 'Services' {
-        Section -Invisible {
-            Section -Name 'Service List' {
-                Table -DataTable $O365.Services
-            }
-            Section -Name 'Service & Feature List' {
-                Table -DataTable $O365.ServicesExtended
-            }
+        Section -Name 'Service List' {
+            Table -DataTable $O365.Services -Filtering
         }
     }
     Tab -Name 'Current Status' {
         Section -Invisible {
             Section -Name 'Current Status' {
-                Table -DataTable $O365.CurrentStatus
+                Table -DataTable $O365.CurrentStatus {
+                    TableCondition -Name 'ServiceStatus' -Value 'serviceOperational' -BackgroundColor MintGreen -FailBackgroundColor Salmon
+                } -Filtering
             }
             Section -Name 'Current Status Extended' {
-                Table -DataTable $O365.CurrentStatusExtended
-            }
-        }
-    }
-    Tab -Name 'Historical Status' {
-        Section -Invisible {
-            Section -Name 'Historical Status' {
-                Table -DataTable $O365.HistoricalStatus
-            }
-            Section -Name 'Historical Status Extended' {
-                Table -DataTable $O365.HistoricalStatusExtended
+                Table -DataTable $O365.CurrentStatusExtended {
+                    TableCondition -Name 'ServiceStatus' -Value 'serviceOperational' -BackgroundColor MintGreen -FailBackgroundColor Salmon
+                } -Filtering
             }
         }
     }
     Tab -Name 'Message Center Information' {
-        Section -Invisible {
-            Section -Name 'Message Center' {
-                Table -DataTable $O365.MessageCenterInformation
-            }
-            Section -Name 'Message Center Extended' {
-                Table -DataTable $O365.MessageCenterInformationExtended -InvokeHTMLTags
-            }
+        #Section -Invisible {
+        Section -Name 'Message Center' {
+            Table -DataTable $O365.MessageCenterInformation -Filtering
         }
+        Section -Name 'Message Center Extended' {
+            Table -DataTable $O365.MessageCenterInformationExtended -InvokeHTMLTags -Filtering
+        }
+        #}
     }
     Tab -Name 'Incidents' {
         Section -Invisible {
             Section -Name 'Incidents' {
-                Table -DataTable $O365.Incidents
+                Table -DataTable $O365.Incidents -Filtering {
+                    TableCondition -Name 'IsResolved' -Value $true -BackgroundColor MintGreen -FailBackgroundColor Salmon -ComparisonType bool
+                }
             }
             Section -Name 'Incidents Extended' {
-                Table -DataTable $O365.IncidentsExtended
+                Table -DataTable $O365.IncidentsExtended -Filtering {
+                    TableCondition -Name 'IsResolved' -Value $true -BackgroundColor MintGreen -FailBackgroundColor Salmon -ComparisonType bool
+                }
             }
         }
-    }
-    Tab -Name 'Incidents Messages' {
-        Section -Invisible {
-            Section -Name 'Incidents Messages' {
-                Table -DataTable $O365.IncidentsMessages
-            }
+        Section -Name 'Incidents Messages' {
+            Table -DataTable $O365.IncidentsUpdates -InvokeHTMLTags -Filtering
         }
     }
-    Tab -Name 'Planned Maintenance' {
-        Section -Invisible {
-            Section {
-                Table -DataTable $O365.PlannedMaintenance
-            }
-            Section {
-                Table -DataTable $O365.PlannedMaintenanceExtended
-            }
-        }
-    }
-}
+} -Online -ShowHTML
