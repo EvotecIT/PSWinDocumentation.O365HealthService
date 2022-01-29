@@ -1,29 +1,26 @@
 function Connect-O365ServiceHealth {
-    [CmdLetbinding()]
+    [cmdletBinding(DefaultParameterSetName = 'ClearText')]
     param(
-        [string][alias('ClientID')] $ApplicationID,
-        [string][alias('ClientSecret')] $ApplicationKey,
-        [string] $TenantDomain,
-        [switch] $TlsDefault
+        [parameter(Mandatory, ParameterSetName = 'Encrypted')]
+        [parameter(Mandatory, ParameterSetName = 'ClearText')][string][alias('ClientID')] $ApplicationID,
+        [parameter(Mandatory, ParameterSetName = 'ClearText')][string][alias('ClientSecret')] $ApplicationKey,
+        [parameter(Mandatory, ParameterSetName = 'Encrypted')][string][alias('ClientSecretEncrypted')] $ApplicationKeyEncrypted,
+        [parameter(Mandatory, ParameterSetName = 'Credential')][PSCredential] $Credential,
+
+        [parameter(Mandatory, ParameterSetName = 'Encrypted')]
+        [parameter(Mandatory, ParameterSetName = 'ClearText')]
+        [parameter(Mandatory, ParameterSetName = 'Credential')]
+        [string] $TenantDomain
     )
-    $Body = @{
-        grant_type    = "client_credentials"
-        scope         = "https://graph.microsoft.com/.default"
-        client_id     = $ApplicationID
-        client_secret = $ApplicationKey
+
+    $connectGraphSplat = @{
+        ApplicationID           = $ApplicationID
+        ApplicationKey          = $ApplicationKey
+        ApplicationKeyEncrypted = $ApplicationKeyEncrypted
+        Credential              = $Credential
+        TenantDomain            = $TenantDomain
+        Resource                = 'https://graph.microsoft.com/.default'
     }
-    try {
-        if (-not $TlsDefault) {
-            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-        }
-        $Authorization = Invoke-RestMethod -Method Post -Uri "https://login.microsoftonline.com/$($TenantDomain)/oauth2/v2.0/token" -Body $body -ErrorAction Stop
-    } catch {
-        $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
-        Write-Warning -Message "Connect-O365ServiceHealth - Error: $ErrorMessage"
-    }
-    if ($Authorization) {
-        @{'Authorization' = "$($Authorization.token_type) $($Authorization.access_token)" }
-    } else {
-        $null
-    }
+    Remove-EmptyValue -Hashtable $connectGraphSplat
+    Connect-Graph @connectGraphSplat
 }
