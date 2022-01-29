@@ -1,0 +1,875 @@
+<!-- saved from url=(0014)about:internet -->
+ <!DOCTYPE html>
+ <html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><meta content="2022-01-29 21:14:38" name="revised"><title></title><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet preload prefetch" type="text/css" as="style"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript" comment="jquery"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" type="text/javascript"></script><link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet preload prefetch" type="text/css" as="style"/><link href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" rel="stylesheet preload prefetch" type="text/css" as="style"/><script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js" type="text/javascript"></script><script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js" type="text/javascript"></script><script src="https://cdn.datatables.net/plug-ins/1.10.25/sorting/datetime-moment.js" type="text/javascript"></script><link href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet preload prefetch" type="text/css" as="style"/><script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js" type="text/javascript"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js" type="text/javascript"></script><script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js" type="text/javascript"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js" type="text/javascript"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js" type="text/javascript"></script><link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" rel="stylesheet preload prefetch" type="text/css" as="style"/><script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" type="text/javascript"></script><link href="https://cdn.jsdelivr.net/gh/evotecit/cdn@0.0.13/CSS/dataTables.searchBuilder.min.css" rel="stylesheet preload prefetch" type="text/css" as="style"/><script src="https://cdn.jsdelivr.net/gh/evotecit/cdn@0.0.13/JS/dataTables.searchBuilder.min.js" type="text/javascript"></script><style type="text/css">body {    font-family: 'Roboto Condensed', sans-serif;    font-size: 8pt;    margin: 0px;}input {    font-size: 8pt;}.main-section {    margin-top: 0px;}</style><style type="text/css">td {    height: 14px;}div.dataTables_wrapper {    margin: 5px;}button.dt-button {    line-height: 1 !important;    color: blue !important;    border-radius: 5px;}tfoot input {    padding: -3px;    width: 100%;    box-sizing: border-box;}td::before, td.sorting_1::before {    background-color: #007bff !important;}thead input {    padding: -3px;    width: 100%;    box-sizing: border-box;}</style><noscript><style type="text/css">table {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+table td {
+    border-width: 1px;
+    padding: 4px;
+    text-align: left;
+    border-top: 1px solid #ddd;
+}
+
+table thead th {
+    text-align: center;
+    font-weight: bold;
+    padding: 4px 17px;
+    border-bottom: 1px solid #111;
+    background-color: white;
+    color: black;
+}
+
+table tfoot th {
+    text-align: center;
+    font-weight: bold;
+    padding: 4px 17px;
+    border-top: 1px solid #111;
+    background-color: white;
+    color: black;
+}
+
+table tr:nth-of-type(odd) {
+    background-color: #F6F6F5;
+}
+
+table tr:nth-of-type(even) {
+    background-color: white;
+}
+
+table td, table th {
+    border: 1px solid black;
+}</style></noscript><style type="text/css">div.dt-button-collection {    margin-bottom: 10px !important;    width: auto !important;    margin-top: 10px !important;    position: relative;}</style><style type="text/css">@media all and (-ms-high-contrast:active) {.defaultSection {    display: flex;}}.defaultSection {    flex-direction: column;    border: 1px solid #bbbbbb;    padding-bottom: 0px;    margin: 5px;    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);    transition: 0.3s;    border-radius: 0px;}.defaultSectionHead {    display: flex;    justify-content: center;    padding: 5px;    margin: 0px 0px 0px 0px;    font-weight: bold;    background-color: #696969;    color: #ffffff;    border-radius: 0px;}</style><style type="text/css">.overflowHidden {    overflow: hidden;    overflow-x: hidden;    overflow-y: hidden;}.flexParent {    display: flex;    justify-content: space-between;}.flexParentInvisible {    display: flex;    justify-content: space-between;}.flexElement {    flex-basis: 100%;    max-width: 100%;}.flexPanel {    flex-basis: 100%;    max-width: 100%;}.flex-grid {    display: flex;}</style><style type="text/css">.tabsWrapper {    text-align: center;    font-family: 'Roboto', sans-serif !important;    text-transform: uppercase;}[data-tabs] {    display: flex;    margin: 5px 5px 5px 5px;    padding: 0px;    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);    border-radius: 0px;    justify-content: center;    flex-wrap: wrap;}[data-tabs]>* {    cursor: pointer;    padding: 10px 20px;    flex-grow: 1;    flex-shrink: 1;    flex-basis: auto;}[data-tabs] .active {    background: #696969;    color: #fff;    border-radius: 0px;}[data-panes]>* {    display: none;}[data-panes]>.active {    display: block;}</style></head><body><div class="main-section"><div class="tabsWrapper"><div class="tabsSlimmer"><div data-tabs="true"><div id="Tab-oyr23tpb" class="active"><span>Services</span></div><div id="Tab-myx5uln9"><span>Current Status</span></div><div id="Tab-nhs1fj29"><span>Message Center Information</span></div><div id="Tab-be6v2n1f"><span>Incidents</span></div></div></div></div><div data-panes="true"><div id="Tab-oyr23tpb-Content" class="active"><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Service List">Service List </a>&nbsp;<a id="show_anchor-1p7ojv9" href="javascript:void(0)" onclick="show('anchor-1p7ojv9'); " style="display:none">(Show)</a><a id="hide_anchor-1p7ojv9" href="javascript:void(0)" onclick="hide('anchor-1p7ojv9'); " style="display:none">(Hide)</a></div></div><div id="anchor-1p7ojv9" name="anchor-1p7ojv9" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-1p7ojv9" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-YoRYmyET').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}}}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-YoRYmyET" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div></div><div id="Tab-myx5uln9-Content"><div class="flexParentInvisible flexElement overflowHidden defaultSectionContentInvisible" style="flex-basis:100%"><div class="flexParent flexElement overflowHidden defaultSectionContentInvisible"><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Current Status">Current Status </a>&nbsp;<a id="show_anchor-tv5qcuo" href="javascript:void(0)" onclick="show('anchor-tv5qcuo'); " style="display:none">(Show)</a><a id="hide_anchor-tv5qcuo" href="javascript:void(0)" onclick="hide('anchor-tv5qcuo'); " style="display:none">(Hide)</a></div></div><div id="anchor-tv5qcuo" name="anchor-tv5qcuo" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-tv5qcuo" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-oIFZMjDL').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}},
+"rowCallback": function (row, data) { }}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-oIFZMjDL" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Current Status Extended">Current Status Extended </a>&nbsp;<a id="show_anchor-xjz76ca" href="javascript:void(0)" onclick="show('anchor-xjz76ca'); " style="display:none">(Show)</a><a id="hide_anchor-xjz76ca" href="javascript:void(0)" onclick="hide('anchor-xjz76ca'); " style="display:none">(Hide)</a></div></div><div id="anchor-xjz76ca" name="anchor-xjz76ca" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-xjz76ca" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-sqYUbuYM').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}},
+"rowCallback": function (row, data) { }}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-sqYUbuYM" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div></div></div></div><div id="Tab-nhs1fj29-Content"><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Message Center">Message Center </a>&nbsp;<a id="show_anchor-koej5ig" href="javascript:void(0)" onclick="show('anchor-koej5ig'); " style="display:none">(Show)</a><a id="hide_anchor-koej5ig" href="javascript:void(0)" onclick="hide('anchor-koej5ig'); " style="display:none">(Hide)</a></div></div><div id="anchor-koej5ig" name="anchor-koej5ig" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-koej5ig" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-BugLcdco').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}}}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-BugLcdco" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Message Center Extended">Message Center Extended </a>&nbsp;<a id="show_anchor-n47lhd2" href="javascript:void(0)" onclick="show('anchor-n47lhd2'); " style="display:none">(Show)</a><a id="hide_anchor-n47lhd2" href="javascript:void(0)" onclick="hide('anchor-n47lhd2'); " style="display:none">(Hide)</a></div></div><div id="anchor-n47lhd2" name="anchor-n47lhd2" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-n47lhd2" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-LEWDDjhm').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}}}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-LEWDDjhm" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div></div><div id="Tab-be6v2n1f-Content"><div class="flexParentInvisible flexElement overflowHidden defaultSectionContentInvisible" style="flex-basis:100%"><div class="flexParent flexElement overflowHidden defaultSectionContentInvisible"><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Incidents">Incidents </a>&nbsp;<a id="show_anchor-4joe0ci" href="javascript:void(0)" onclick="show('anchor-4joe0ci'); " style="display:none">(Show)</a><a id="hide_anchor-4joe0ci" href="javascript:void(0)" onclick="hide('anchor-4joe0ci'); " style="display:none">(Hide)</a></div></div><div id="anchor-4joe0ci" name="anchor-4joe0ci" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-4joe0ci" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-MGlkyxqZ').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}},
+"rowCallback": function (row, data) { }}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-MGlkyxqZ" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Incidents Extended">Incidents Extended </a>&nbsp;<a id="show_anchor-lay7dqj" href="javascript:void(0)" onclick="show('anchor-lay7dqj'); " style="display:none">(Show)</a><a id="hide_anchor-lay7dqj" href="javascript:void(0)" onclick="hide('anchor-lay7dqj'); " style="display:none">(Hide)</a></div></div><div id="anchor-lay7dqj" name="anchor-lay7dqj" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-lay7dqj" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-glZTfuRZ').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}},
+"rowCallback": function (row, data) { }}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-glZTfuRZ" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div></div></div><div class="defaultSection overflowHidden " style="flex-basis:100%"><div class="defaultSectionHead"><div class="defaultSectionText"><a name="Incidents Messages">Incidents Messages </a>&nbsp;<a id="show_anchor-1u7grpe" href="javascript:void(0)" onclick="show('anchor-1u7grpe'); " style="display:none">(Show)</a><a id="hide_anchor-1u7grpe" href="javascript:void(0)" onclick="hide('anchor-1u7grpe'); " style="display:none">(Hide)</a></div></div><div id="anchor-1u7grpe" name="anchor-1u7grpe" class="flexParent flexElement overflowHidden defaultSectionContent"><div id="anchor-1u7grpe" class="flexParent flexElement overflowHidden defaultSectionContent collapsable"><script>                $(document).ready(function() {
+                    $.fn.dataTable.moment( 'L' );
+                    
+                    
+                    
+                    //  Table code
+                    var table = $('#DT-UWuurtTi').DataTable(
+                        {
+"dom":"ABfrtip",
+"searchFade":false,
+"scrollCollapse":false,
+"ordering":true,
+"order":[],
+"rowGroup":"",
+"info":true,
+"procesing":true,
+"select":true,
+"searching":true,
+"stateSave":true,
+"paging":true,
+"pagingType":["full_numbers"],
+"lengthMenu":[[15,25,50,100,-1],[15,25,50,100,"All"]],
+"language":{
+},
+"data":[{
+"Name":"No data available to display\."}],
+"columns":[{
+"data":"Name"}],
+"deferRender":true,
+"buttons":[{
+"extend":"copyHtml5"},{
+"extend":"excelHtml5",
+"exportOptions":{
+"format":    {
+        body: function (data, row, column, node) {
+            data = $('<p>' + data + '</p>').text(); return $.isNumeric(data.replace(',', '.')) ? data.replace(',', '.') : data;
+        }
+    }}},{
+"extend":"csvHtml5"},{
+"extend":"pdfHtml5",
+"pageSize":"A3",
+"orientation":"landscape"},{
+"extend":"pageLength"},{
+"extend":"searchBuilder",
+"config":{
+}}],
+"responsive":{
+"details":{
+"type":"inline"}}}
+                    );
+                    
+                    
+                    
+                });</script><div class="flexElement overflowHidden"><table id="DT-UWuurtTi" width="100%" class="dataTables display compact"><thead><tr><th>Name</th></tr></thead></table></div></div></div></div></div></div></div><footer><script type="text/javascript">function isEmptyOrSpaces(str) {
+    return !str || str.trim() === '';
+}
+function dataTablesCheckCondition(condition, data) {
+    var columnName = condition['columnName'];
+    var reverseCondition = condition['reverseCondition'];
+    var columnId = condition['columnId'];
+    var operator = condition['operator'].toLowerCase();
+    if (condition['dataStore'].toLowerCase() != 'html') {
+        var columnExists = false;
+        // we need to find whether the column name exists or not, and to make sure we know the column name exact case (it's case sensitive) just in case user provided it wrong
+        Object.getOwnPropertyNames(data).forEach(
+            function (val) {
+                if (val.toLowerCase() == columnName.toLowerCase()) {
+                    columnName = val;
+                    columnExists = true;
+                    return
+                }
+            }
+        );
+        if (!columnExists) {
+            return false;
+        }
+        var columnValue = data[columnName];
+    } else {
+        // check if columnid is set - if it's not set it means the column doesn't exists so we dont' proceed
+        if (columnId == -1) {
+            return false;
+        }
+        var columnValue = data[columnId];
+    }
+    var conditionValue = condition['value'];
+
+    //console.log('before: ' + conditionValue + ' || ' + columnValue + ' type: ' + condition['type']);
+    if (condition['type'] == 'bool') {
+        columnValue = columnValue.toString().toLowerCase();
+        conditionValue = conditionValue.toString().toLowerCase();
+    } else if (condition['type'] == 'string') {
+        if (!condition['caseSensitive']) {
+            columnValue = columnValue.toString().toLowerCase();
+            conditionValue = conditionValue.toString().toLowerCase();
+        }
+    } else if (condition['type'] == 'number') {
+        if (Array.isArray(conditionValue)) {
+            // this will be used for between, betweenInclusive
+            // if its an array we need to make sure to convert conditionValue within an array
+            var conditionValueTemporary = [];
+
+            for (var i = 0; i < conditionValue.length; i++) {
+                //for (let value of conditionValue) {
+                if (!isEmptyOrSpaces(conditionValue[i].toString())) {
+                    conditionValueTemporary.push(Number(conditionValue[i]));
+                } else {
+                    conditionValueTemporary.push(undefined);
+                }
+            }
+            conditionValue = conditionValueTemporary;
+            if (!isEmptyOrSpaces(columnValue.toString())) {
+                columnValue = Number(columnValue);
+            } else {
+                columnValue = undefined;
+            }
+        } else {
+            // This logic is to get rid of empty string which is normally treated as 0
+            if (!isEmptyOrSpaces(conditionValue.toString())) {
+                conditionValue = Number(conditionValue);
+            } else {
+                conditionValue = undefined;
+            }
+            if (!isEmptyOrSpaces(columnValue.toString())) {
+                columnValue = Number(columnValue);
+            } else {
+                columnValue = undefined;
+            }
+        }
+    } else if (condition['type'] == 'date') {
+        if (Array.isArray(condition['valueDate'])) {
+            var conditionValueTemporary = [];
+            for (var i = 0; i < condition['valueDate'].length; i++) {
+                //for (let value of condition['valueDate']) {
+                var valueDate = condition['valueDate'][i];
+                conditionValueTemporary.push(new Date(valueDate.year, valueDate.month - 1, valueDate.day, valueDate.hours, valueDate.minutes, valueDate.seconds));
+            }
+            conditionValue = conditionValueTemporary;
+        } else {
+            // bring conditionValue to proper date
+            var valueDate = condition['valueDate'];
+            conditionValue = new Date(valueDate.year, valueDate.month - 1, valueDate.day, valueDate.hours, valueDate.minutes, valueDate.seconds);
+        }
+        // bring columnValue based on dateTimeFormat provided
+        var momentConversion = moment(columnValue, condition['dateTimeFormat']);
+        columnValue = new Date(momentConversion);
+    }
+
+    if (reverseCondition) {
+        var sideLeft = conditionValue;
+        var sideRight = columnValue;
+    } else {
+        var sideLeft = columnValue;
+        var sideRight = conditionValue;
+    }
+    //console.log('after: ' + conditionValue + ' || ' + columnValue);
+    if (operator == 'eq') {
+        if (sideLeft == sideRight) {
+            return true;
+        }
+    } else if (operator == 'ne') {
+        if (sideLeft != sideRight) {
+            return true;
+        }
+    } else if (operator == 'gt') {
+        if (sideLeft > sideRight) {
+            return true;
+        }
+    } else if (operator == 'lt') {
+        if (sideLeft < sideRight) {
+            return true;
+        }
+    } else if (operator == 'le') {
+        if (sideLeft <= sideRight) {
+            return true;
+        }
+    } else if (operator == 'ge') {
+        if (sideLeft >= sideRight) {
+            return true;
+        }
+    } else if (operator == 'in') {
+        if (sideRight.indexOf(sideLeft) != -1) {
+            return true;
+        }
+    } else if (operator == 'notin') {
+        if (sideRight.indexOf(sideLeft) == -1) {
+            return true;
+        }
+    } else if (operator == 'contains' || operator == 'like') {
+        //var compareValue = conditionValue.replace('*', '.*')
+        var regex = new RegExp(sideRight);
+        if (regex.test(sideLeft)) {
+            return true;
+        }
+    } else if (operator == 'notcontains' || operator == 'notlike') {
+        //var compareValue = conditionValue.replace('*', '.*')
+        var regex = new RegExp(sideRight)
+        if (!regex.test(sideLeft)) {
+            return true;
+        }
+    } else if (operator == 'betweeninclusive') {
+        if (Array.isArray(sideRight) && sideLeft >= sideRight[0] && sideLeft <= sideRight[1]) {
+            return true;
+        }
+    } else if (operator == 'between') {
+        if (Array.isArray(sideRight) && sideLeft > sideRight[0] && sideLeft < sideRight[1]) {
+            return true;
+        }
+    }
+    return false;
+}
+function dataTablesConditionalFormatting(row, data, conditionsContainer, highlightColumn, css, failCss) {
+    var conditionsMatch = [];
+    var found = false;
+    for (var i = 0; i < conditionsContainer.length; i++) {
+        var container = conditionsContainer[i];
+        for (var k = 0; k < container['conditions'].length; k++) {
+            var condition = container['conditions'][k];
+            conditionsMatch.push(
+                dataTablesCheckCondition(condition, data)
+            );
+        }
+        if (container['logic'] == 'AND') {
+            // if (conditionsMatch.every(value => value === true)) {
+            //     found = true;
+            // }
+
+            for (var a = 0; a < conditionsMatch.length; a++) {
+                if (conditionsMatch[a] !== true) {
+                    found = false;
+                    break;
+                } else {
+                    found = true;
+                }
+            }
+
+
+        } else if (container['logic'] == 'OR') {
+            //if (conditionsMatch.some(value => value === true)) {
+            //    found = true;
+            //}
+
+            for (var a = 0; a < conditionsMatch.length; a++) {
+                if (conditionsMatch[a] === true) {
+                    found = true;
+                    break;
+                }
+            }
+
+        } else if (container['logic'] == 'NONE') {
+            // if (conditionsMatch.every(value => value != true)) {
+            //    found = true;
+            //}
+
+            for (var a = 0; a < conditionsMatch.length; a++) {
+                if (conditionsMatch[a] !== false) {
+                    found = false;
+                    break;
+                } else {
+                    found = true;
+                }
+            }
+        }
+    }
+    if (found) {
+        if (highlightColumn == null) {
+            $('td', row).css(css);
+        } else {
+            for (var a = 0; a < highlightColumn.length; a++) {
+                var column = highlightColumn[a];
+                //for (let column of highlightColumn) {
+                $("td:eq(" + column + ")", row).css(css);
+
+                //if (data.Type == "group") {
+                //    $('td:eq(6)', row).html('<b>A</b>');
+                //}
+            }
+        }
+    } else {
+        if (failCss) {
+            if (highlightColumn == null) {
+                $('td', row).css(failCss);
+            } else {
+                for (var a = 0; a < highlightColumn.length; a++) {
+                    var column = highlightColumn[a];
+                    //for (let column of highlightColumn) {
+                    $("td:eq(" + column + ")", row).css(failCss);
+                }
+            }
+        }
+    }
+}</script> <script type="text/javascript">var tabbis = (function () {
+    var fn = {};
+
+    var data;
+    var types = ['tab', 'pane'];
+    var type;
+    var groups = [];
+    var activeGroups = [];
+    var activeChildren = [];
+    var activeItems = [];
+    var indexGroup;
+    var indexItem;
+    var memory = [];
+
+    fn.init = function (options) {
+        data = options;
+        fn.setDefaults();
+        fn.setMemory();
+
+        groups['tab'] = document.querySelectorAll(data.tabGroup);
+        groups['pane'] = document.querySelectorAll(data.paneGroup);
+
+        for (var groupIndex = 0; groupIndex < groups['tab'].length; groupIndex++) {
+            var tabItems = groups['tab'][groupIndex].children;
+
+            for (var itemIndex = 0; itemIndex < tabItems.length; itemIndex++) {
+                tabItems[itemIndex].addEventListener('click', fn.onClick.bind(this, groupIndex, itemIndex), false);
+
+                indexGroup = groupIndex;
+                indexItem = itemIndex;
+
+                if (!fn.hasMemory()) continue;
+                fn.setNodes(groupIndex, itemIndex);
+            }
+        }
+    };
+
+    fn.onClick = function (groupIndex, itemIndex) {
+        fn.setNodes(groupIndex, itemIndex);
+        fn.setCallback(indexGroup, indexItem);
+    };
+
+    fn.setNodes = function (groupIndex, itemIndex) {
+        indexGroup = groupIndex;
+        indexItem = itemIndex;
+
+        for (var i = 0; i < types.length; i++) {
+            type = types[i];
+
+            fn.setActiveGroup();
+            fn.setActiveChildren();
+            fn.setActiveItems();
+            fn.putActiveClass();
+        }
+
+        memory[groupIndex] = [];
+        memory[groupIndex][itemIndex] = true;
+
+        try {
+            localStorage.setItem('tabbis', JSON.stringify(memory));
+        } catch (e) {
+            console.log('Tabs local storage failed. Most likely IE in use.')
+        }
+    };
+
+    //fn.hasMemory = function () {
+    //    if (typeof memory === 'undefined') return;
+    //    if (typeof memory[indexGroup] === 'undefined') return;
+    //    if (typeof memory[indexGroup][indexItem] === 'undefined') return;
+    //    if (memory[indexGroup][indexItem] !== true) return;
+    //    return true;
+    //};
+
+    fn.hasMemory = function () {
+        // https://stackoverflow.com/questions/41902495/javascript-multidimensional-array-is-valid
+
+        if (typeof memory === 'undefined') return;
+        if (typeof memory[indexGroup] === 'undefined') return;
+        if (memory[indexGroup] === null) return;
+        if (typeof memory[indexGroup][indexItem] === 'undefined') return;
+        if (memory[indexGroup][indexItem] === null) return;
+        if (memory[indexGroup][indexItem] !== true) return;
+        return true;
+    };
+
+    fn.setMemory = function () {
+        try {
+            if (localStorage.getItem('tabbis') === null) return;
+            if (localStorage.getItem('tabbis').length == 0) return;
+
+            memory = Object.values(JSON.parse(localStorage.getItem('tabbis')));
+        } catch (e) {
+            console.log('Tabs local storage failed. Most likely IE in use.')
+        }
+    };
+
+    fn.putActiveClass = function () {
+        for (var i = 0; i < activeChildren[type].length; i++) {
+            activeChildren[type][i].classList.remove(data[type + 'Active']);
+        }
+
+        activeItems[type].classList.add(data[type + 'Active']);
+    };
+
+    fn.setDefaults = function () {
+        for (var i = 0; i < types.length; i++) {
+            type = types[i];
+
+            fn.setOption(type + 'Group', '[data-' + type + 's]');
+            fn.setOption(type + 'Active', 'active');
+        }
+    };
+
+    fn.setOption = function (key, value) {
+        data = data || [];
+        data[key] = data[key] || value;
+    };
+
+    fn.setActiveGroup = function () {
+        activeGroups[type] = groups[type][indexGroup];
+    };
+
+    fn.setActiveChildren = function () {
+        activeChildren[type] = activeGroups[type].children;
+    };
+
+    fn.setActiveItems = function () {
+        activeItems[type] = activeChildren[type][indexItem];
+    };
+
+    fn.setCallback = function () {
+        if (typeof data.callback === "function") {
+            data.callback(activeItems.tab, activeItems.pane);
+        }
+    };
+
+    fn.reset = function () {
+        for (var groupIndex = 0; groupIndex < groups['tab'].length; groupIndex++) {
+            tabItems = groups['tab'][groupIndex].children;
+            paneItems = groups['pane'][groupIndex].children;
+
+            for (var itemIndex = 0; itemIndex < tabItems.length; itemIndex++) {
+                tabItems[itemIndex].classList.remove(data['tabActive']);
+                paneItems[itemIndex].classList.remove(data['paneActive']);
+            }
+        }
+        localStorage.removeItem('tabbis');
+    };
+
+    return fn;
+})();</script> <script type="text/javascript">var tabs = tabbis.init({
+    tabGroup: "[data-tabs]",
+    paneGroup: "[data-panes]",
+    tabActive: "active",
+    paneActive: "active",
+    callback: function (tab, pane) {
+        // console.log("TAB id:" + tab.id + pane.id + tableid);
+        // this makes sure to refresh tables on given tab change to make sure they have buttons and everything
+        // which tab has which table
+        findObjectsToRedraw(tab.id + "-Content");
+    }
+});
+
+// in theory should take care of removing local storage for tabbis
+// some errors occurs if the local storage is not cleaned after a while
+window.addEventListener("unload", tabbis.remove, false);
+</script> <script src="https://cdn.jsdelivr.net/gh/evotecit/cdn@0.0.13/JS/redrawObjects.min.js" type="text/javascript"></script></footer></body></html>
