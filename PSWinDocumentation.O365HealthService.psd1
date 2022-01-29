@@ -8,7 +8,7 @@
     Description          = 'Office 365 Health Service'
     FunctionsToExport    = 'Get-Office365Health'
     GUID                 = '5879b6ed-e0da-4815-ad68-d345253bfe54'
-    ModuleVersion        = '0.2.5'
+    ModuleVersion        = '1.0.0'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
