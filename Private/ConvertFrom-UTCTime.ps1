@@ -5,7 +5,7 @@
         [switch] $ToLocalTime
     )
     if ($null -eq $Script:TimeZoneBias) {
-        $TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone).Bias
+        $TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone -Verbose:$false).Bias
     } else {
         $TimeZoneBias = $Script:TimeZoneBias
     }
