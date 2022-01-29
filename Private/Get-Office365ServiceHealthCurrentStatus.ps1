@@ -6,41 +6,32 @@ function Get-Office365ServiceHealthCurrentStatus {
         [switch] $ToLocalTime
     )
     try {
-        $CurrentStatus = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/CurrentStatus" -Headers $Authorization -Method Get)
+        $CurrentStatus = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/healthOverviews?`$expand=issues" -Method GET -Headers $Authorization -FullUri
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Get-Office365ServiceHealthCurrentStatus - Error: $ErrorMessage"
         return
     }
     $Output = @{ }
-    $Output.Simple = foreach ($Status in $CurrentStatus.Value) {
+    $Output.Simple = foreach ($Status in $CurrentStatus) {
         [PSCustomObject][ordered] @{
-            #ID          = $Status.ID
-            Service       = $Status.WorkloadDisplayName
-            #Status              = $Status.Status
-            ServiceStatus = $Status.StatusDisplayName
-            StatusTime    = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
-            IncidentIds   = $Status.IncidentIds -join ', '
-            #Workload            = $Status.Workload
+            ID            = $Status.ID
+            Service       = $Status.Service
+            ServiceStatus = $Status.Status
+            StatusTime    = $Script:Today
+            Incidents     = ($Status.issues | Where-Object { $_.IsResolved -eq $false }).id
         }
     }
 
-    $Output.Extended = foreach ($Status in $CurrentStatus.Value) {
-        foreach ($Feature in  $Status.FeatureStatus) {
-            [PSCustomObject][ordered] @{
-                #ID                   = $Status.ID
-                Service       = $Status.WorkloadDisplayName
-                ServiceStatus = $Status.StatusDisplayName
-                Feature       = $Feature.FeatureDisplayName
-                FeatureStatus = $Feature.FeatureServiceStatusDisplayName
-                IncidentIds   = $Status.IncidentIds -join ', '
-                #Status                          = $Status.Status
-                StatusTime    = ConvertFrom-UTCTime -ToLocalTime:$ToLocalTime -Time $Status.StatusTime
-                #Workload             = $Status.Workload
-                #FeatureName          = $Feature.FeatureName
-                #FeatureServiceStatus            = $Feature.FeatureServiceStatus
-
-            }
+    $Output.Extended = foreach ($Status in $CurrentStatus) {
+        [PSCustomObject][ordered] @{
+            ID                    = $Status.ID
+            Service               = $Status.Service
+            ServiceStatus         = $Status.Status
+            StatusTime            = $Script:Today
+            Incidents             = ($Status.issues | Where-Object { $_.IsResolved -eq $false }).id
+            FeaturesAffected      = ($Status.issues | Where-Object { $_.IsResolved -eq $false }).feature
+            FeaturesAffectedGroup = ($Status.issues | Where-Object { $_.IsResolved -eq $false }).featureGroup
         }
     }
     return $Output

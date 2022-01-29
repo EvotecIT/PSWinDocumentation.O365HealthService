@@ -5,28 +5,17 @@ function Get-Office365ServiceHealthServices {
         [string] $TenantDomain
     )
     try {
-        $Services = (Invoke-RestMethod -Uri "https://manage.office.com/api/v1.0/$($TenantDomain)/ServiceComms/Services" -Headers $Authorization -Method Get)
+        $Services = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/healthOverviews" -Method GET -Headers $Authorization -FullUri
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Get-Office365ServiceHealthServices - Error: $ErrorMessage"
         return
     }
     $Output = @{ }
-    $Output.Simple = foreach ($Service in $Services.Value) {
+    $Output.Simple = foreach ($Service in $Services) {
         [PSCustomObject][ordered] @{
-            #ID          = $Service.ID
-            Service = $Service.DisplayName
-        }
-    }
-
-    $Output.Extended = foreach ($Service in $Services.Value) {
-        foreach ($Feature in  $Service.Features) {
-            [PSCustomObject][ordered] @{
-                #ID                 = $Service.ID
-                Service = $Service.DisplayName
-                Feature = $Feature.DisplayName
-                #FeatureName        = $Feature.Name
-            }
+            ID      = $Service.ID
+            Service = $Service.service
         }
     }
     return $Output
