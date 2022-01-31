@@ -5,7 +5,12 @@
         [switch] $ToLocalTime
     )
     if ($null -eq $Script:TimeZoneBias) {
-        $TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone -Verbose:$false).Bias
+        try {
+            $TimeZoneBias = (Get-TimeZone -ErrorAction Stop).BaseUtcOffset.TotalMinutes
+        } catch {
+            Write-Warning "ConvertFrom-UTCTime - couldn't get timezone. Please report on GitHub."
+            $TimeZoneBias = 0
+        }
     } else {
         $TimeZoneBias = $Script:TimeZoneBias
     }
