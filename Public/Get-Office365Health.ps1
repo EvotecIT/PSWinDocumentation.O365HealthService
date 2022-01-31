@@ -4,7 +4,8 @@ function Get-Office365Health {
         [string][alias('ClientID')] $ApplicationID,
         [string][alias('ClientSecret')] $ApplicationKey,
         [string] $TenantDomain,
-        [PSWinDocumentation.Office365Health[]] $TypesRequired = [PSWinDocumentation.Office365Health]::All
+        [PSWinDocumentation.Office365Health[]] $TypesRequired = [PSWinDocumentation.Office365Health]::All,
+        [switch] $ToLocalTime
     )
     $StartTime = Start-TimeLog
     try {
@@ -35,7 +36,7 @@ function Get-Office365Health {
             [PSWinDocumentation.Office365Health]::IncidentsExtended
             [PSWinDocumentation.Office365Health]::IncidentsUpdates
         )) {
-        $Issues = Get-Office365ServiceHealthIssues -Authorization $Authorization
+        $Issues = Get-Office365ServiceHealthIssues -Authorization $Authorization -ToLocalTime:$ToLocalTime
     }
     if (Find-TypesNeeded -TypesRequired $TypesRequired -TypesNeeded @(
             [PSWinDocumentation.Office365Health]::MessageCenterInformation,

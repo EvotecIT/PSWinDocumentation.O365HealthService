@@ -1,7 +1,8 @@
 ﻿function Get-Office365ServiceHealthIssues {
     [CmdLetbinding()]
     param(
-        [System.Collections.IDictionary] $Authorization
+        [System.Collections.IDictionary] $Authorization,
+        [switch] $ToLocalTime
     )
     try {
         $AllMessages = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues" -Method GET -Headers $Authorization -FullUri
@@ -17,11 +18,13 @@
             Title           = $Message.Title
             Impact          = $Message.impactDescription
             IsResolved      = $Message.IsResolved
+            StartTime       = ConvertFrom-UTCTime -Time $Message.startDateTime -ToLocalTime:$ToLocalTime.IsPresent
+            EndTime         = ConvertFrom-UTCTime -Time $Message.endDateTime -ToLocalTime:$ToLocalTime.IsPresent
             # HighImpact      = $Message.highImpact
             Classification  = $Message.classification
             Origin          = $Message.origin
             Service         = $Message.service
-            LastUpdatedTime = $Message.lastModifiedDateTime
+            LastUpdatedTime = ConvertFrom-UTCTime -Time $Message.lastModifiedDateTime -ToLocalTime:$ToLocalTime.IsPresent
             LastUpdatedDays = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
             Status          = $Message.status
             Feature         = $Message.feature
@@ -36,11 +39,13 @@
             Title           = $Message.Title
             Impact          = $Message.impactDescription
             IsResolved      = $Message.IsResolved
+            StartTime       = ConvertFrom-UTCTime -Time $Message.startDateTime -ToLocalTime
+            EndTime         = ConvertFrom-UTCTime -Time $Message.endDateTime -ToLocalTime
             # HighImpact      = $Message.highImpact
             Classification  = $Message.classification
             Origin          = $Message.origin
             Service         = $Message.service
-            LastUpdatedTime = $Message.lastModifiedDateTime
+            LastUpdatedTime = ConvertFrom-UTCTime -Time $Message.lastModifiedDateTime -ToLocalTime:$ToLocalTime.IsPresent
             LastUpdatedDays = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
             Status          = $Message.status
             Feature         = $Message.feature
