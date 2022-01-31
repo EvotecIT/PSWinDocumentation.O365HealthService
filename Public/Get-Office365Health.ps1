@@ -7,7 +7,12 @@ function Get-Office365Health {
         [PSWinDocumentation.Office365Health[]] $TypesRequired = [PSWinDocumentation.Office365Health]::All
     )
     $StartTime = Start-TimeLog
-    $Script:TimeZoneBias = (Get-CimInstance -ClassName Win32_TimeZone -Verbose:$false).Bias
+    try {
+        $Script:TimeZoneBias = (Get-TimeZone -ErrorAction Stop).BaseUtcOffset.TotalMinutes
+    } catch {
+        Write-Warning "ConvertFrom-UTCTime - couldn't get timezone. Please report on GitHub."
+        $Script:TimeZoneBias = 0
+    }
     $Script:Today = Get-Date
     if ($null -eq $TypesRequired -or $TypesRequired -contains [PSWinDocumentation.Office365Health]::All) {
         $TypesRequired = Get-Types -Types ([PSWinDocumentation.Office365Health])
