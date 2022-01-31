@@ -32,6 +32,9 @@
 
 ### Changelog
 
+- 1.0.1 - 31.01.2022
+  - Fixes cross-platform timezone issue [#10](https://github.com/EvotecIT/PSWinDocumentation.O365HealthService/issues/10)
+
 - 1.0.0 - 29.01.2022
   - Microsoft disabled the Health Service API. Migrated code to Graph API.
   - There are **breaking changes** on the output (aka a bit differently formatted information), less types, different columns, etc.
