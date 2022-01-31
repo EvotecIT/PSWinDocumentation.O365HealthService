@@ -32,6 +32,9 @@
 
 ### Changelog
 
+- 1.0.2 - 31.01.2022
+  - Fixes cross-platform timezone issue [#10](https://github.com/EvotecIT/PSWinDocumentation.O365HealthService/issues/10) - this time for real
+
 - 1.0.1 - 31.01.2022
   - Fixes cross-platform timezone issue [#10](https://github.com/EvotecIT/PSWinDocumentation.O365HealthService/issues/10)
 
