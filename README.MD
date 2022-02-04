@@ -30,6 +30,12 @@
 - How to/What it really use and how you can use it: https://evotec.xyz/powershell-way-to-get-all-information-about-office-365-service-health/
 - Step by Step to Get App ID and App Key: https://evotec.xyz/preparing-azure-app-registrations-permissions-for-office-365-health-service/
 
+### Required Permissions
+
+Please not that Microsoft deprecates the old way of accessing Service Health API. Since version 1.0+ you need to modify permissions for it to work properly.
+
+![https://evotec.xyz/wp-content/uploads/2022/01/img_61f59e2b000c3.png](https://evotec.xyz/wp-content/uploads/2022/01/img_61f59e2b000c3.png)
+
 ### Install
 
 ```powershell
