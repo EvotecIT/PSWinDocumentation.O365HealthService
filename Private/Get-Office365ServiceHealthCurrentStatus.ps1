@@ -6,7 +6,7 @@ function Get-Office365ServiceHealthCurrentStatus {
         [switch] $ToLocalTime
     )
     try {
-        $CurrentStatus = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/healthOverviews?`$expand=issues" -Method GET -Headers $Authorization -FullUri
+        $CurrentStatus = Invoke-Graphimo -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/healthOverviews?`$expand=issues" -Method GET -Headers $Authorization -FullUri
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Get-Office365ServiceHealthCurrentStatus - Error: $ErrorMessage"
