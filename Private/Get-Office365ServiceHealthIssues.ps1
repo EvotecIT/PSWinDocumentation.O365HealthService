@@ -84,7 +84,7 @@
                 [PSCustomObject] @{
                     Id                   = $Message.Id
                     Service              = $Message.service
-                    Created              = $_.createdDateTime
+                    Created              = if ($_.createdDateTime) { [datetime]::Parse($_.createdDateTime) } else { $null }
                     Type                 = $_.postType
                     Title                = $Object.Title
                     UserImpact           = $Object.UserImpact
