@@ -1,5 +1,10 @@
 ﻿### PSWinDocumentation.O365HealthService Release History
 
+#### 1.0.4 - 2023.07.06
+- Fixes DateTime related issues
+- Improves DateTime conversion
+- Updates overall
+
 #### 1.0.3 - 31.01.2021
   - Brings back StartDate and EndDate for issues
 
