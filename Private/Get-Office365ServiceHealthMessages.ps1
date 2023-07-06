@@ -17,9 +17,9 @@ function Get-Office365ServiceHealthMessages {
             Id                       = $Message.Id
             Title                    = $Message.Title
             Service                  = $Message.services
-            LastUpdatedTime          = $Message.lastModifiedDateTime
+            LastUpdatedTime          = if ($Message.lastModifiedDateTime) { [DateTime]::Parse($Message.lastModifiedDateTime) } else { $null }
             LastUpdatedDays          = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
-            ActionRequiredByDateTime = $Message.actionRequiredByDateTime
+            ActionRequiredByDateTime = if ( $Message.actionRequiredByDateTime) { [DateTime]::Parse($Message.actionRequiredByDateTime) } else { $null }
             ActionRequiredDays       = if ($ActionRequiredDays -eq 0) { $null } else { - $ActionRequiredDays }
             Tags                     = $Message.Tags
             RoadmapId                = ($Message.details | Where-Object { $_.name -eq 'roadmapids' }).Value
@@ -32,9 +32,9 @@ function Get-Office365ServiceHealthMessages {
             Id                       = $Message.Id
             Title                    = $Message.Title
             Service                  = $Message.services
-            LastUpdatedTime          = $Message.lastModifiedDateTime
+            LastUpdatedTime          = if ($Message.lastModifiedDateTime) { [DateTime]::Parse($Message.lastModifiedDateTime) } else { $null }
             LastUpdatedDays          = Convert-TimeToDays -StartTime $Message.lastModifiedDateTime -EndTime $Script:Today
-            ActionRequiredByDateTime = $Message.actionRequiredByDateTime
+            ActionRequiredByDateTime = if ($Message.actionRequiredByDateTime) { [DateTime]::Parse($Message.actionRequiredByDateTime) } else { $null }
             ActionRequiredDays       = if ($ActionRequiredDays -eq 0) { $null } else { - $ActionRequiredDays }
             Tags                     = $Message.Tags
             Bloglink                 = ($Message.details | Where-Object { $_.name -eq 'bloglink' }).Value
@@ -45,8 +45,8 @@ function Get-Office365ServiceHealthMessages {
             Category                 = $Message.category
             IsMajorChange            = $Message.isMajorChange
             Severity                 = $Message.Severity
-            StartTime                = $Message.startDateTime
-            EndTime                  = $Message.endDateTime
+            StartTime                = If ($Message.startDateTime) { [DateTime]::Parse($Message.startDateTime) } else { $null }
+            EndTime                  = if ($Message.endDateTime) { [DateTime]::Parse($Message.endDateTime) } else { $null }
             Message                  = $Message.body.content
         }
     }
