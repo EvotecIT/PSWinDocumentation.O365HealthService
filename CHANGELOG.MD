@@ -4,6 +4,7 @@
 - Fixes DateTime related issues
 - Improves DateTime conversion
 - Updates overall
+- Change of certificate which may require `Install-Module PSWinDocumentation.O365HealthService -Force -Vebose -SkipPublisherCheck`
 
 #### 1.0.3 - 31.01.2021
   - Brings back StartDate and EndDate for issues
