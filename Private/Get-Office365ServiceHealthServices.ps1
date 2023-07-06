@@ -5,7 +5,7 @@ function Get-Office365ServiceHealthServices {
         [string] $TenantDomain
     )
     try {
-        $Services = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/healthOverviews" -Method GET -Headers $Authorization -FullUri
+        $Services = Invoke-Graphimo -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/healthOverviews" -Method GET -Headers $Authorization -FullUri
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Get-Office365ServiceHealthServices - Error: $ErrorMessage"
