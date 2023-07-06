@@ -5,7 +5,7 @@
         [switch] $ToLocalTime
     )
     try {
-        $AllMessages = Invoke-Graph -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues" -Method GET -Headers $Authorization -FullUri
+        $AllMessages = Invoke-Graphimo -Uri "https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/issues" -Method GET -Headers $Authorization -FullUri
     } catch {
         $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
         Write-Warning -Message "Get-Office365ServiceHealthIssues - Error: $ErrorMessage"
