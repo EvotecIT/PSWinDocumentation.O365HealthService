@@ -20,11 +20,13 @@
         if ($null -eq $Time -or $Time -eq '') {
             return
         } else {
-            $NewTime = $Time -replace ', at', '' -replace 'UTC', '' -replace 'at' -replace '(^.+?,)'
+            #Write-Verbose -Message "ConvertFrom-UTCTime - Converting time: $Time"
+            $NewTime = $Time -replace ', at', '' -replace ' by', '' -replace 'UTC', '' -replace ' at', ''
+            $NewTIme = $NewTime -replace 'Monday,', '' -replace 'Tuesday,', '' -replace 'Wednesday,', '' -replace 'Thursday,', '' -replace 'Friday,', '' -replace 'Saturday,', '' -replace 'Sunday,', ''
             try {
                 [DateTime] $ConvertedTime = [DateTime]::Parse($NewTime)
             } catch {
-                Write-Warning "ConvertFrom-UTCTime - couldn't convert time. Please report on GitHub - $Time. Skipping conversion..."
+                Write-Warning "ConvertFrom-UTCTime - couldn't convert time $Time (after conversion $NewTime). Exception: $($_.Exception.Message). Skipping conversion..."
                 return $Time
             }
         }
