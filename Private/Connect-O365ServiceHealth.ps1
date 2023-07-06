@@ -22,5 +22,5 @@ function Connect-O365ServiceHealth {
         Resource                = 'https://graph.microsoft.com/.default'
     }
     Remove-EmptyValue -Hashtable $connectGraphSplat
-    Connect-Graph @connectGraphSplat
+    Connect-Graphimo @connectGraphSplat
 }
