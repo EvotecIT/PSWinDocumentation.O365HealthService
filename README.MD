@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/powershellgallery/v/PSWinDocumentation.O365HealthService.svg"></a>
-  <a href="https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/powershellgallery/vpre/PSWinDocumentation.O365HealthService.svg?label=powershell%20gallery%20preview&colorB=yellow"></a>
+  <a href="https://www.powershellgallery.com/packages/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/powershellgallery/v/PSWinDocumentation.O365HealthService.svg?label=powershell%20gallery%20preview&colorB=yellow&include_prereleases"></a>
   <a href="https://github.com/EvotecIT/PSWinDocumentation.O365HealthService"><img src="https://img.shields.io/github/license/EvotecIT/PSWinDocumentation.O365HealthService.svg"></a>
 </p>
 
